@@ -1,13 +1,11 @@
 package com.project.ProjectTracker.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -20,6 +18,21 @@ public class User {
     private Date dob;
     private String email;
     private String roles;
+
+    public User(int uId, String username, String password, String address, String phoneNo, Date dob, String email, String roles) {
+        this.uId = uId;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.phoneNo = phoneNo;
+        this.dob = dob;
+        this.email = email;
+        this.roles = roles;
+    }
+
+    public User() {
+
+    }
 
     public String getAddress() {
         return address;

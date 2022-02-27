@@ -29,10 +29,10 @@ public class Home {
     @RequestMapping(value = "/welcome")
     String welcome()
     {
-        return "Yes Zaal";
+        return "Yes ";
     }
 
-    @CrossOrigin(origins="*")
+//    @CrossOrigin(origins="*")
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{
         try {
