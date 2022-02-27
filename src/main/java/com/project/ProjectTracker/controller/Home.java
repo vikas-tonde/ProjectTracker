@@ -1,5 +1,6 @@
 package com.project.ProjectTracker.controller;
 
+import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.helper.JwtUtil;
 import com.project.ProjectTracker.models.AuthenticationRequest;
 import com.project.ProjectTracker.models.AuthenticationResponse;
@@ -25,6 +26,9 @@ public class Home {
     @Autowired
     private JwtUtil jwtTokenUtil;
 
+    @Autowired
+    UserRepository userRepository;
+
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/welcome",method = RequestMethod.GET)
     String welcome()
@@ -33,11 +37,20 @@ public class Home {
     }
 
     @GetMapping(value = "/validatecookie")
-    boolean validateCookie(@RequestBody String jwt)
+    boolean validateCookie(@RequestHeader(value = "Authorization") String jwt)
     {
-        String username=jwtTokenUtil.extractUsername(jwt);
-        final UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
-        return jwtTokenUtil.validateToken(jwt,userDetails);
+//        jwt = jwt.substring(7);
+//        String username=jwtTokenUtil.extractUsername(jwt);
+////        final UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+//        Optional<User> user = userRepository.findByUsername(username);
+//
+//        user.orElseThrow(()-> new UsernameNotFoundException("Not Found: "+ username));
+//
+//        final UserDetails userDetails=user.map(CustomUserDetails::new).get();
+//        System.out.println(jwt);
+//        return jwtTokenUtil.validateToken(jwt,userDetails);
+        boolean response=true;
+        return response;
     }
 
 //    @CrossOrigin(origins="*")
