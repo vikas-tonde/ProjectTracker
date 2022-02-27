@@ -26,10 +26,18 @@ public class Home {
     private JwtUtil jwtTokenUtil;
 
     @CrossOrigin(origins="*")
-    @RequestMapping(value = "/welcome")
+    @RequestMapping(value = "/welcome",method = RequestMethod.GET)
     String welcome()
     {
         return "Yes ";
+    }
+
+    @GetMapping(value = "/validatecookie")
+    boolean validateCookie(String jwt)
+    {
+        String username=jwtTokenUtil.extractUsername(jwt);
+        final UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+        return jwtTokenUtil.validateToken(jwt,userDetails);
     }
 
 //    @CrossOrigin(origins="*")
