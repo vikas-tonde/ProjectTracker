@@ -3,6 +3,10 @@ package com.project.ProjectTracker.entity;
 import jakarta.persistence.*;
 
 import java.sql.Date;
+/*
+This class is the entity class of User which is used
+to map the object with user table by spring data JPA
+ */
 
 @Entity
 @Table(name = "user")
