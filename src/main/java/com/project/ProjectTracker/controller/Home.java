@@ -33,7 +33,7 @@ public class Home {
     }
 
     @GetMapping(value = "/validatecookie")
-    boolean validateCookie(String jwt)
+    boolean validateCookie(@RequestBody String jwt)
     {
         String username=jwtTokenUtil.extractUsername(jwt);
         final UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
