@@ -53,6 +53,12 @@ public class Home {
         return response;
     }
 
+    @GetMapping(value = "/forgot")
+    public String forgotPassword()
+    {
+        return "Yes working";
+    }
+
 //    @CrossOrigin(origins="*")
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{
