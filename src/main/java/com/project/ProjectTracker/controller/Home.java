@@ -5,6 +5,7 @@ import com.project.ProjectTracker.helper.JwtUtil;
 import com.project.ProjectTracker.models.AuthenticationRequest;
 import com.project.ProjectTracker.models.AuthenticationResponse;
 import com.project.ProjectTracker.service.CustomUserDetailsService;
+import com.project.ProjectTracker.service.ForgetPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,6 +29,9 @@ public class Home {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    ForgetPasswordService forgetPasswordService;
 
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/welcome",method = RequestMethod.GET)
@@ -56,7 +60,9 @@ public class Home {
     @GetMapping(value = "/forgot")
     public String forgotPassword()
     {
-        return "Yes working";
+
+        forgetPasswordService.sendMail("shreyaramtirth4@gmail.com");
+        return "Yes ";
     }
 
 //    @CrossOrigin(origins="*")
