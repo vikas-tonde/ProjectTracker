@@ -30,7 +30,7 @@ public class ForgetPasswordService {
         User user=userRepository.findByUsername(username).get();
         if(user!=null)
         {
-            emailSender.sendMail(user.getEmail());
+            emailSender.sendMail(user.getEmail(),user.getUsername());
             return true;
         }
         else {
