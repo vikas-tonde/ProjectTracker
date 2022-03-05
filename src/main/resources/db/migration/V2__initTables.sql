@@ -11,4 +11,4 @@ create table User (
     roles varchar(50)
 );
 
-insert into User values (1,'user', 'user@mail.com', '123456', 'pune', '9087654321','1998-06-21','Project Manager')
+insert into User values (1,'shreya', 'shreyaramtirth4@gmail.com', 'shreya123', 'pune', '9087654321','1998-06-21','Project Manager')

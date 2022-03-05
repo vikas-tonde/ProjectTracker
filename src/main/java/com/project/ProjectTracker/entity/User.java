@@ -38,6 +38,17 @@ public class User {
 
     }
 
+    public User(User user) {
+        this.uId = user.getuId();
+        this.username = user.getUsername();
+        this.password = user.getPassword();
+        this.address = user.getAddress();
+        this.phoneNo = user.getPhoneNo();
+        this.dob = user.getDob();
+        this.email = user.getEmail();
+        this.roles = user.getRoles();
+    }
+
     public String getAddress() {
         return address;
     }

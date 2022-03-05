@@ -4,9 +4,11 @@ import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.helper.JwtUtil;
 import com.project.ProjectTracker.models.AuthenticationRequest;
 import com.project.ProjectTracker.models.AuthenticationResponse;
+import com.project.ProjectTracker.models.UsernameModel;
 import com.project.ProjectTracker.service.CustomUserDetailsService;
 import com.project.ProjectTracker.service.ForgetPasswordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -41,7 +43,7 @@ public class Home {
     }
 
     @GetMapping(value = "/validatecookie")
-    boolean validateCookie(@RequestHeader(value = "Authorization") String jwt)
+    ResponseEntity<?> validateCookie(@RequestHeader(value = "Authorization") String jwt)
     {
 //        jwt = jwt.substring(7);
 //        String username=jwtTokenUtil.extractUsername(jwt);
@@ -53,16 +55,20 @@ public class Home {
 //        final UserDetails userDetails=user.map(CustomUserDetails::new).get();
 //        System.out.println(jwt);
 //        return jwtTokenUtil.validateToken(jwt,userDetails);
-        boolean response=true;
-        return response;
+        return ResponseEntity.ok(true);
     }
 
     @GetMapping(value = "/forgot")
-    public String forgotPassword()
+    public ResponseEntity<?> forgotPassword(@RequestBody UsernameModel user)
     {
 
-        forgetPasswordService.sendMail("shreyaramtirth4@gmail.com");
-        return "Yes ";
+        if(forgetPasswordService.sendMail(user.getUsername()))
+        {
+            return ResponseEntity.ok().body(true);
+        }
+        else {
+            return new ResponseEntity<>(false, HttpStatus.NOT_FOUND);
+        }
     }
 
 //    @CrossOrigin(origins="*")
