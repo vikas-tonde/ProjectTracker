@@ -58,7 +58,7 @@ public class Home {
         return ResponseEntity.ok(true);
     }
 
-    @GetMapping(value = "/forgot")
+    @PostMapping(value = "/forgot")
     public ResponseEntity<?> forgotPassword(@RequestBody UsernameModel user)
     {
 
