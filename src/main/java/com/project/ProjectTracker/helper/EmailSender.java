@@ -33,6 +33,7 @@ public class EmailSender {
         String otp = otpGenerator.sendOtp();
         helper.setTo(toMail);
         helper.setSubject("Password Reset");
+        helper.setFrom("tondev98@gmail.com");
         String content= getEmailContent(otp,username);
         helper.setText(content,true);
         javaMailSender.send(message);

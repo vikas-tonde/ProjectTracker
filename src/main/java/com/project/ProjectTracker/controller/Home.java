@@ -4,9 +4,11 @@ import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.helper.JwtUtil;
 import com.project.ProjectTracker.models.AuthenticationRequest;
 import com.project.ProjectTracker.models.AuthenticationResponse;
+import com.project.ProjectTracker.models.OtpRequest;
 import com.project.ProjectTracker.models.UsernameModel;
 import com.project.ProjectTracker.service.CustomUserDetailsService;
 import com.project.ProjectTracker.service.ForgetPasswordService;
+import com.project.ProjectTracker.service.OtpVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +36,9 @@ public class Home {
 
     @Autowired
     ForgetPasswordService forgetPasswordService;
+
+    @Autowired
+    OtpVerificationService otpVerificationService;
 
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/welcome",method = RequestMethod.GET)
@@ -71,7 +76,7 @@ public class Home {
         }
     }
 
-//    @CrossOrigin(origins="*")
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody AuthenticationRequest authenticationRequest) throws Exception{
         try {
@@ -83,4 +88,15 @@ public class Home {
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
+
+    @PostMapping(value = "/verifyotp")
+    public ResponseEntity <?> otpVerification(@RequestBody OtpRequest otpRequest){
+        if(otpVerificationService.verify(otpRequest.getOtp(), otpRequest.getUsername())){
+            return ResponseEntity.ok().body(true);
+        }else{
+            return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
+        }
+
+    }
+
 }

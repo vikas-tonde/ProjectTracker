@@ -22,8 +22,9 @@ public class User {
     private Date dob;
     private String email;
     private String roles;
+    private String verificationCode;
 
-    public User(int uId, String username, String password, String address, String phoneNo, Date dob, String email, String roles) {
+    public User(int uId, String username, String password, String address, String phoneNo, Date dob, String email, String roles, String verificationCode) {
         this.uId = uId;
         this.username = username;
         this.password = password;
@@ -32,6 +33,7 @@ public class User {
         this.dob = dob;
         this.email = email;
         this.roles = roles;
+        this.verificationCode = verificationCode;
     }
 
     public User() {
@@ -47,10 +49,19 @@ public class User {
         this.dob = user.getDob();
         this.email = user.getEmail();
         this.roles = user.getRoles();
+        this.verificationCode = user.getVerificationCode();
     }
 
     public String getAddress() {
         return address;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
 
     public void setAddress(String address) {
