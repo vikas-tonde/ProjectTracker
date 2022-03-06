@@ -48,6 +48,7 @@ public class EmailSender {
         try {
             configuration.getTemplate("email.ftlh").process(model, stringWriter);
 
+
         }  catch (Exception e) {
             e.printStackTrace();
         }
