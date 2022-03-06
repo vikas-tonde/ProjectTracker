@@ -46,7 +46,7 @@ public class EmailSender {
         model.put("otp", otp);
         model.put("username", username);
         try {
-            configuration.getTemplate("email.ftlh").process(model, stringWriter);
+            configuration.getTemplate("index.ftlh").process(model, stringWriter);
 
 
         }  catch (Exception e) {
