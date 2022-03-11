@@ -14,8 +14,12 @@ public class OtpVerificationService {
 
     public boolean verify(String otp, String username){
         Optional <User> user= userRepository.findByUsernameAndVerificationCode(username, otp);
-        if(user.isPresent())
+        if(user.isPresent()) {
+            User u = user.get();
+            u.setVerificationCode(null);
+            userRepository.save(u);
             return true;
+        }
         else
             return false;
     }

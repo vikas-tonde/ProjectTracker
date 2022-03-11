@@ -16,13 +16,11 @@ public class EmailSender {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    @Autowired
-    OtpGenerator otpGenerator;
 
     @Autowired
     Configuration configuration;
 
-    public void sendMail(String toMail,String username)
+    public void sendMail(String toMail,String username, String otp)
     {
 
         MimeMessage message = javaMailSender.createMimeMessage();
@@ -30,8 +28,9 @@ public class EmailSender {
             MimeMessageHelper helper;
             helper = new MimeMessageHelper(message,true);
 
-        String otp = otpGenerator.sendOtp();
+
         helper.setTo(toMail);
+        helper.setFrom("tondev98@gmail.com");
         helper.setSubject("Password Reset");
         helper.setFrom("tondev98@gmail.com");
         String content= getEmailContent(otp,username);

@@ -24,8 +24,34 @@ public class User {
     private String roles;
     private String verificationCode;
 
-    public User(int uId, String username, String password, String address, String phoneNo, Date dob, String email, String roles, String verificationCode) {
+    public User(int uId,
+                String username,
+                String password,
+                String address,
+                String phoneNo,
+                Date dob,
+                String email,
+                String roles,
+                String verificationCode) {
         this.uId = uId;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.phoneNo = phoneNo;
+        this.dob = dob;
+        this.email = email;
+        this.roles = roles;
+        this.verificationCode = verificationCode;
+    }
+
+    public User(String username,
+                String password,
+                String address,
+                String phoneNo,
+                Date dob,
+                String email,
+                String roles,
+                String verificationCode) {
         this.username = username;
         this.password = password;
         this.address = address;

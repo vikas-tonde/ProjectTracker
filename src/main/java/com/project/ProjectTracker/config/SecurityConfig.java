@@ -34,6 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/forgot").permitAll()
+                .antMatchers("/verifyotp").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
