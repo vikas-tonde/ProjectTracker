@@ -13,4 +13,13 @@ create table User (
     otp_verified boolean
 );
 
-insert into User values (1,'shreya', 'shreyaramtirth4@gmail.com', '$2a$04$3AFJH1m1VGEUbSiumjmXrORx2BGpX.4fAyMs0DJvmEZ.koD38XrIu', 'pune', '9087654321','1998-06-21','Project Manager',null,false)
+insert into User values (1,'shreya', 'shreyaramtirth4@gmail.com', '$2a$04$3AFJH1m1VGEUbSiumjmXrORx2BGpX.4fAyMs0DJvmEZ.koD38XrIu',
+                         'pune',
+                         '9087654321','1998-06-21',
+                         'Project Manager',null,
+                         false);
+
+create table Project (
+    id bigint unsigned primary key,
+    project_name varchar(50) unique
+);
