@@ -6,6 +6,7 @@ import com.project.ProjectTracker.entity.User;
 import com.project.ProjectTracker.helper.EmailSender;
 import com.project.ProjectTracker.helper.OtpGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,13 +14,16 @@ import java.util.Optional;
 @Service
 public class ForgetPasswordService {
     @Autowired
-    EmailSender emailSender;
+    private EmailSender emailSender;
 
     @Autowired
-    UserRepository userRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
-    OtpGenerator otpGenerator;
+    private UserRepository userRepository;
+
+    @Autowired
+    private OtpGenerator otpGenerator;
 
 
     public ForgetPasswordService() {
@@ -62,6 +66,22 @@ public class ForgetPasswordService {
             return false;
     }
 
-
+    public boolean resetPassword(String username, String password)
+    {
+        Optional<User> user = userRepository.findByUsername(username);
+        if(user.isPresent())
+        {
+            User u = user.get();
+            if(u.isOtpVerified())
+            {
+                String encode = bCryptPasswordEncoder.encode(password);
+                u.setPassword(encode);
+                u.setOtpVerified(false);
+                userRepository.save(u);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

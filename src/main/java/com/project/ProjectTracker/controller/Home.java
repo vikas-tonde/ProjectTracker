@@ -94,10 +94,14 @@ public class Home {
 
     }
 
-//    @PostMapping(value = "/resetpass")
-//    public ResponseEntity<?> resetPassword(@RequestBody AuthenticationRequest request)
-//    {
-//
-//    }
+    @PostMapping(value = "/resetpass")
+    public ResponseEntity<?> resetPassword(@RequestBody AuthenticationRequest request)
+    {
+        if(forgetPasswordService.resetPassword(request.getUsername(),request.getPassword()))
+        {
+            return ResponseEntity.ok().body(true);
+        }
+        return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
+    }
 
 }
