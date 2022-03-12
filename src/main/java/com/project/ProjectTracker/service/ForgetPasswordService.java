@@ -48,4 +48,20 @@ public class ForgetPasswordService {
         }
     }
 
+    public boolean verifyOtp(String otp, String username)
+    {
+        Optional <User> user= userRepository.findByUsernameAndVerificationCode(username, otp);
+        if(user.isPresent()) {
+            User u = user.get();
+            u.setOtpVerified(true);
+            u.setVerificationCode(null);
+            userRepository.save(u);
+            return true;
+        }
+        else
+            return false;
+    }
+
+
+
 }

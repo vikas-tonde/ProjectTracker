@@ -8,7 +8,6 @@ import com.project.ProjectTracker.models.OtpRequest;
 import com.project.ProjectTracker.models.UsernameModel;
 import com.project.ProjectTracker.service.CustomUserDetailsService;
 import com.project.ProjectTracker.service.ForgetPasswordService;
-import com.project.ProjectTracker.service.OtpVerificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,9 +36,6 @@ public class Home {
     @Autowired
     ForgetPasswordService forgetPasswordService;
 
-    @Autowired
-    OtpVerificationService otpVerificationService;
-
     @CrossOrigin(origins="*")
     @RequestMapping(value = "/welcome",method = RequestMethod.GET)
     String welcome()
@@ -52,7 +48,7 @@ public class Home {
     {
 //        jwt = jwt.substring(7);
 //        String username=jwtTokenUtil.extractUsername(jwt);
-////        final UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
+//        final UserDetails userDetails = customUserDetailsService.loadUserByUsername(username);
 //        Optional<User> user = userRepository.findByUsername(username);
 //
 //        user.orElseThrow(()-> new UsernameNotFoundException("Not Found: "+ username));
@@ -66,7 +62,6 @@ public class Home {
     @PostMapping(value = "/forgot")
     public ResponseEntity<?> forgotPassword(@RequestBody UsernameModel user)
     {
-
         if(forgetPasswordService.sendMail(user.getUsername()))
         {
             return ResponseEntity.ok().body(true);
@@ -91,12 +86,18 @@ public class Home {
 
     @PostMapping(value = "/verifyotp")
     public ResponseEntity <?> otpVerification(@RequestBody OtpRequest otpRequest){
-        if(otpVerificationService.verify(otpRequest.getOtp(), otpRequest.getUsername())){
+        if(forgetPasswordService.verifyOtp(otpRequest.getOtp(), otpRequest.getUsername())){
             return ResponseEntity.ok().body(true);
         }else{
             return new ResponseEntity<>(false,HttpStatus.NOT_FOUND);
         }
 
     }
+
+//    @PostMapping(value = "/resetpass")
+//    public ResponseEntity<?> resetPassword(@RequestBody AuthenticationRequest request)
+//    {
+//
+//    }
 
 }

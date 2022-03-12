@@ -23,6 +23,7 @@ public class User {
     private String email;
     private String roles;
     private String verificationCode;
+    private boolean otpVerified;
 
     public User(int uId,
                 String username,
@@ -32,7 +33,7 @@ public class User {
                 Date dob,
                 String email,
                 String roles,
-                String verificationCode) {
+                String verificationCode, boolean otpVerified) {
         this.uId = uId;
         this.username = username;
         this.password = password;
@@ -42,6 +43,7 @@ public class User {
         this.email = email;
         this.roles = roles;
         this.verificationCode = verificationCode;
+        this.otpVerified= otpVerified;
     }
 
     public User(String username,
@@ -51,7 +53,7 @@ public class User {
                 Date dob,
                 String email,
                 String roles,
-                String verificationCode) {
+                String verificationCode, boolean otpVerified) {
         this.username = username;
         this.password = password;
         this.address = address;
@@ -60,6 +62,7 @@ public class User {
         this.email = email;
         this.roles = roles;
         this.verificationCode = verificationCode;
+        this.otpVerified= otpVerified;
     }
 
     public User() {
@@ -76,7 +79,9 @@ public class User {
         this.email = user.getEmail();
         this.roles = user.getRoles();
         this.verificationCode = user.getVerificationCode();
+        this.otpVerified= user.isOtpVerified();
     }
+
 
     public String getAddress() {
         return address;
@@ -152,5 +157,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isOtpVerified() {
+        return otpVerified;
+    }
+
+    public void setOtpVerified(boolean otpVerified) {
+        this.otpVerified = otpVerified;
     }
 }
