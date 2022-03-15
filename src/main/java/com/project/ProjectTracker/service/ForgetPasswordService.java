@@ -5,35 +5,26 @@ import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.entity.User;
 import com.project.ProjectTracker.helper.EmailSender;
 import com.project.ProjectTracker.helper.OtpGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class ForgetPasswordService {
-    @Autowired
+
     private EmailSender emailSender;
 
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
     private UserRepository userRepository;
 
-    @Autowired
     private OtpGenerator otpGenerator;
 
-
-    public ForgetPasswordService() {
-
-    }
-
-    public ForgetPasswordService(EmailSender emailSender) {
-        this.emailSender = emailSender;
-    }
-
+    @Transactional
     public boolean sendMail(String username)
     {
         Optional<User> user=userRepository.findByUsername(username);
@@ -46,12 +37,10 @@ public class ForgetPasswordService {
             emailSender.sendMail(user.get().getEmail(),user.get().getUsername(), otp);
             return true;
         }
-        else {
-            return false;
-
-        }
+        return false;
     }
 
+    @Transactional
     public boolean verifyOtp(String otp, String username)
     {
         Optional <User> user= userRepository.findByUsernameAndVerificationCode(username, otp);
@@ -62,10 +51,10 @@ public class ForgetPasswordService {
             userRepository.save(u);
             return true;
         }
-        else
-            return false;
+        return false;
     }
 
+    @Transactional
     public boolean resetPassword(String username, String password)
     {
         Optional<User> user = userRepository.findByUsername(username);
