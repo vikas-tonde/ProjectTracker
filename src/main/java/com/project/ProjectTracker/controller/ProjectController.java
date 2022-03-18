@@ -1,23 +1,23 @@
 package com.project.ProjectTracker.controller;
 
-import com.project.ProjectTracker.Dao.ProjectRepository;
 import com.project.ProjectTracker.entity.Project;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.project.ProjectTracker.service.ProjectService;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@AllArgsConstructor
 public class ProjectController
 {
-    @Autowired
-    private ProjectRepository projectRepository;
+    private ProjectService projectService;
+
 
     @PostMapping(value = "/addproject")
-    public boolean addProject(@RequestBody Project project)
+    public Project addProject(@RequestBody Project project)
     {
-       projectRepository.save(project);
-       return true;
+       return projectService.save(project);
     }
 
     @GetMapping(value="/getproject/{id}")

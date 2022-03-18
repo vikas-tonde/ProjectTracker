@@ -1,23 +1,33 @@
 package com.project.ProjectTracker.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.sql.Date;
+import java.util.List;
 
 @Entity
+@Table(name = "project", uniqueConstraints = {@UniqueConstraint(columnNames = {"title "})})
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 public class Project
 {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-    private String projectName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long pId;
+    private String title;
+    private Date dateAdded;
+    private Date deadline;
+    private long cost;
+    private String priority;  //according to deadline(moderate, low, high)
+    private String description;
+    private String progress;
+
+    @OneToMany(targetEntity = Task.class, mappedBy = "project", fetch = FetchType.LAZY)
+    private List<Task> tasks;
 
 }

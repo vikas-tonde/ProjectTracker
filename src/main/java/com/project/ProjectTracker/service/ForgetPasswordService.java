@@ -34,7 +34,7 @@ public class ForgetPasswordService {
             User u = user.get();
             u.setVerificationCode(otp);
             userRepository.save(u);
-            emailSender.sendMail(user.get().getEmail(),user.get().getUsername(), otp);
+            emailSender.sendMail(u.getEmail(),u.getUsername(), otp);
             return true;
         }
         return false;
