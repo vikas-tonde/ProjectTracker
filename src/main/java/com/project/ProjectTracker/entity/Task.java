@@ -12,6 +12,7 @@ import java.sql.Date;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "task")
 public class Task {
 
     @Id

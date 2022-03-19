@@ -1,4 +1,3 @@
-
 create table User (
     u_id bigint unsigned auto_increment primary key,
     first_name varchar(50),
@@ -24,7 +23,7 @@ insert into user values (1,'Shreya',
                          '9087654321','1998-06-21',
                          'Project Manager','Front-End Developer',null,
                          false
-                         );
+                        );
 
 create table project (
     p_id bigint unsigned AUTO_INCREMENT primary key,
@@ -37,19 +36,46 @@ create table project (
     progress varchar(10)
 );
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
-values ('Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '80');
+create table tag(
+    tag_id bigint unsigned auto_increment primary key,
+    tag_name varchar(20)
+);
+
+insert into tag(tag_name) values ('SCM');
+insert into tag(tag_name) values ('CRM');
+insert into tag(tag_name) values ('ERP');
+
+
+create table project_tag(
+    p_id bigint unsigned references project(p_id),
+    tag_id bigint unsigned references tag(tag_id),
+    primary key (p_id, tag_id)
+);
 
 insert into project (title, date_added, deadline, cost, priority, description, progress)
-values ('Non Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '60');
+values ('Random Project', '2022-3-19', '2022-9-09', 5000,null,
+        'This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
+        '80');
 
 insert into project (title, date_added, deadline, cost, priority, description, progress)
-values ('very Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '70');
+values ('Non Random Project', '2022-3-19', '2022-9-09', 5000,null,
+        'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
+        '60');
 
 insert into project (title, date_added, deadline, cost, priority, description, progress)
-values ('So much Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '20');
+values ('very Random Project', '2022-3-19', '2022-9-09', 5000,null,
+        'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
+        '70');
 
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('So much Random Project', '2022-3-19', '2022-9-09', 5000,null,
+        'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
+        '20');
 
+insert into project_tag(p_id, tag_id) VALUES (1,2);
+insert into project_tag(p_id, tag_id) VALUES (2,1);
+insert into project_tag(p_id, tag_id) VALUES (3,3);
+insert into project_tag(p_id, tag_id) VALUES (4,1);
 
 
 create table task(
