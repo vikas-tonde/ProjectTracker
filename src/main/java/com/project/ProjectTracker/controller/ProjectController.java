@@ -13,7 +13,6 @@ public class ProjectController
 {
     private ProjectService projectService;
 
-
     @PostMapping(value = "/addproject")
     public Project addProject(@RequestBody Project project)
     {
@@ -23,7 +22,7 @@ public class ProjectController
     @GetMapping(value="/getproject/{id}")
     public Project getProject(@PathVariable("id") long id)
     {
-        return null;
+        return projectService.getProject(id);
     }
 
     @GetMapping(value="/getprojects")

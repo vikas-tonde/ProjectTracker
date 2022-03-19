@@ -37,7 +37,9 @@ create table project (
     progress varchar(10)
 );
 
-create table Task(
+
+
+create table task(
     task_id bigint unsigned auto_increment primary key,
     p_id bigint unsigned references project(p_id),
     u_id bigint unsigned references  user(u_id),
