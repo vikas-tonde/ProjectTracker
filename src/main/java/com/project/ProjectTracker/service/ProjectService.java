@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -18,6 +19,11 @@ public class ProjectService {
     {
             Optional<Project> project = projectRepository.findById(pId);
             return project.orElse(null);
+    }
+
+    public List<Project> getProjects()
+    {
+        return projectRepository.findAll();
     }
 
     @Transactional

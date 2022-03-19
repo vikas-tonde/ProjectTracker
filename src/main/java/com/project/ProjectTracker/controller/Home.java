@@ -17,6 +17,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.stream.Collectors;
+
 @RestController
 @CrossOrigin(origins="*")
 public class Home {
@@ -79,9 +81,13 @@ public class Home {
         }catch (BadCredentialsException e){
             throw new Exception("Incorrect Username or Password", e);
         }
-        final UserDetails userDetails = customUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
-        final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        final UserDetails user =
+                customUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+
+        final String jwt = jwtTokenUtil.generateToken(user);
+        return ResponseEntity.ok(new AuthenticationResponse(jwt, user.getUsername(), user.getAuthorities().stream().
+                map(grantedAuthority -> grantedAuthority.toString()).
+                collect(Collectors.joining()) ));
     }
 
     @PostMapping(value = "/verifyotp")

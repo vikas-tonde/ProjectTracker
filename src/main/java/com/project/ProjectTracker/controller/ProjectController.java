@@ -28,7 +28,7 @@ public class ProjectController
     @GetMapping(value="/getprojects")
     public List<Project> getProjects()
     {
-        return null;
+        return projectService.getProjects();
     }
 
 
