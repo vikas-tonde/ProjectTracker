@@ -37,6 +37,19 @@ create table project (
     progress varchar(10)
 );
 
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '80');
+
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('Non Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '60');
+
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('very Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '70');
+
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('So much Random Project', '2022-3-19', '2022-9-09', 5000,null, 'This is random project', '20');
+
+
 
 
 create table task(
