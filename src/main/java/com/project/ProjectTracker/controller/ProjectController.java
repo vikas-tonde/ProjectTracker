@@ -32,5 +32,10 @@ public class ProjectController
         return projectService.getProjects();
     }
 
+    @GetMapping(value = "/count")
+    public long getCount()
+    {
+        return projectService.getCount();
+    }
 
 }

@@ -15,6 +15,11 @@ public class ProjectService {
 
     private ProjectRepository projectRepository;
 
+    public long getCount()
+    {
+        return projectRepository.count();
+    }
+
     public List<Project> getProject(String title)
     {
             Optional<List<Project>> project = projectRepository.findByTitleStartingWith(title);
