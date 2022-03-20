@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins="*")
 public class ProjectController
 {
     private ProjectService projectService;
@@ -19,10 +20,10 @@ public class ProjectController
        return projectService.save(project);
     }
 
-    @GetMapping(value="/getproject/{id}")
-    public Project getProject(@PathVariable("id") long id)
+    @GetMapping(value="/getprojects/{project}")
+    public List<Project> getProject(@PathVariable("project") String projectName)
     {
-        return projectService.getProject(id);
+        return projectService.getProject(projectName);
     }
 
     @GetMapping(value="/getprojects")

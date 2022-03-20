@@ -15,9 +15,9 @@ public class ProjectService {
 
     private ProjectRepository projectRepository;
 
-    public Project getProject(long pId)
+    public List<Project> getProject(String title)
     {
-            Optional<Project> project = projectRepository.findById(pId);
+            Optional<List<Project>> project = projectRepository.findByTitleStartingWith(title);
             return project.orElse(null);
     }
 
