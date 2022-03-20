@@ -2,17 +2,15 @@ package com.project.ProjectTracker.entity;
 
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tag")
+@ToString
+@Table(name = "tag", uniqueConstraints = {@UniqueConstraint(columnNames = {"tag_name"})})
 public class Tag {
 
     @Id

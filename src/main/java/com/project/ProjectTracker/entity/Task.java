@@ -16,7 +16,7 @@ import java.sql.Date;
 public class Task {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long taskId;
 
     @ManyToOne(fetch = FetchType.EAGER)

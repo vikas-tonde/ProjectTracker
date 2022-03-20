@@ -38,7 +38,7 @@ create table project (
 
 create table tag(
     tag_id bigint unsigned auto_increment primary key,
-    tag_name varchar(20)
+    tag_name varchar(20) unique
 );
 
 insert into tag(tag_name) values ('SCM');
@@ -86,7 +86,6 @@ create table task(
     assigned_on DATE,
     completed_on date
 );
-
 
 
 create table client (
