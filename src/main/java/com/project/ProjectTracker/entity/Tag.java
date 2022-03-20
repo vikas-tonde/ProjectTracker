@@ -10,7 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@Table(name = "tag", uniqueConstraints = {@UniqueConstraint(columnNames = {"tag_name"})})
+@Table(name = "tag", uniqueConstraints = {@UniqueConstraint(columnNames = {"tagName"})})
 public class Tag {
 
     @Id
