@@ -36,21 +36,33 @@ create table project (
     progress varchar(10)
 );
 
-create table tag(
-    tag_id bigint unsigned auto_increment primary key,
-    tag_name varchar(20) unique
+create table technology (
+  t_id bigint unsigned AUTO_INCREMENT primary key,
+  technology_name varchar(30) unique
 );
 
-insert into tag(tag_name) values ('SCM');
-insert into tag(tag_name) values ('CRM');
-insert into tag(tag_name) values ('ERP');
+insert into technology(technology_name) values ("Java");
+insert into technology(technology_name) values ("React");
+insert into technology(technology_name) values ("Next js");
+insert into technology(technology_name) values ("MySQL");
+insert into technology(technology_name) values ("Angular");
+insert into technology(technology_name) values ("Spring");
+insert into technology(technology_name) values ("WordPress");
+insert into technology(technology_name) values ("Node js");
+insert into technology(technology_name) values ("Redux");
+insert into technology(technology_name) values ("MongoDB");
+insert into technology(technology_name) values ("Android");
+insert into technology(technology_name) values ("Flutter");
+insert into technology(technology_name) values ("IOS");
 
 
-create table project_tag(
+create table project_technology(
     p_id bigint unsigned references project(p_id),
-    tag_id bigint unsigned references tag(tag_id),
-    primary key (p_id, tag_id)
+    t_id bigint unsigned references technology(t_id),
+    primary key (p_id, t_id)
 );
+
+
 
 insert into project (title, date_added, deadline, cost, priority, description, progress)
 values ('Random Project', '2022-3-19', '2022-9-09', 5000,null,
@@ -72,10 +84,15 @@ values ('So much Random Project', '2022-3-19', '2022-9-09', 5000,null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
         '20');
 
-insert into project_tag(p_id, tag_id) VALUES (1,2);
-insert into project_tag(p_id, tag_id) VALUES (2,1);
-insert into project_tag(p_id, tag_id) VALUES (3,3);
-insert into project_tag(p_id, tag_id) VALUES (4,1);
+insert into project_technology values (1,2);
+insert into project_technology values (1,8);
+insert into project_technology values (1,10);
+insert into project_technology values (2,5);
+insert into project_technology values (2,7);
+insert into project_technology values (3,9);
+insert into project_technology values (3,12);
+insert into project_technology values (4,3);
+insert into project_technology values (4,4);
 
 
 create table task(
