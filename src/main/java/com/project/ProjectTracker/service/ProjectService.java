@@ -22,7 +22,7 @@ public class ProjectService {
         return projectRepository.count();
     }
 
-    public List<Project> getProject(String title)
+    public List<Project> getProjectSearch(String title)
     {
             Optional<List<Project>> project = projectRepository.findByTitleStartingWith(title);
             return project.orElse(null);

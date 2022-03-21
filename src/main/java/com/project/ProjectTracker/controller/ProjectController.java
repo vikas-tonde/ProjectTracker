@@ -20,10 +20,10 @@ public class ProjectController
        return projectService.save(project);
     }
 
-    @GetMapping(value="/getprojects/{project}")
+    @GetMapping(value="/getprojects/search/{project}")
     public List<Project> getProject(@PathVariable("project") String projectName)
     {
-        return projectService.getProject(projectName);
+        return projectService.getProjectSearch(projectName);
     }
 
     @GetMapping(value="/getprojects/page/{page}")
