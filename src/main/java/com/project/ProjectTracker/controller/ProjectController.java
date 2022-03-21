@@ -26,6 +26,13 @@ public class ProjectController
         return projectService.getProject(projectName);
     }
 
+    @GetMapping(value="/getprojects/page/{page}")
+    public List<Project> getProject(@PathVariable("page") int page)
+    {
+
+        return projectService.getProject(page);
+    }
+
     @GetMapping(value="/getprojects")
     public List<Project> getProjects()
     {

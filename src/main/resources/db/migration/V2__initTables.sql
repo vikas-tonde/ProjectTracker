@@ -84,6 +84,22 @@ values ('So much Random Project', '2022-3-19', '2022-9-09', 5000,null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
         '20');
 
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('Significant', '2022-3-19', '2022-9-09', 5000,null,
+        'This is Significant project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
+        '50');
+
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('The website of websites', '2022-3-19', '2022-9-09', 5000,null,
+        'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
+        '69');
+
+insert into project (title, date_added, deadline, cost, priority, description, progress)
+values ('A project of final year student', '2022-3-19', '2022-9-09', 5000,null,
+        'This is not much random as others This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
+        '45');
+
+
 insert into project_technology values (1,2);
 insert into project_technology values (1,8);
 insert into project_technology values (1,10);
@@ -93,6 +109,12 @@ insert into project_technology values (3,9);
 insert into project_technology values (3,12);
 insert into project_technology values (4,3);
 insert into project_technology values (4,4);
+insert into project_technology values (5,4);
+insert into project_technology values (5,7);
+insert into project_technology values (6,2);
+insert into project_technology values (6,9);
+insert into project_technology values (7,10);
+insert into project_technology values (7,11);
 
 
 create table task(

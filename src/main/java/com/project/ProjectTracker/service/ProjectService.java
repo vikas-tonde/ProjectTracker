@@ -3,6 +3,8 @@ package com.project.ProjectTracker.service;
 import com.project.ProjectTracker.Dao.ProjectRepository;
 import com.project.ProjectTracker.entity.Project;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,5 +36,12 @@ public class ProjectService {
     @Transactional
     public Project save(Project project) {
        return projectRepository.save(project);
+    }
+
+    public List<Project> getProject(int page) {
+        Pageable pageable= PageRequest.of((page-1),4);
+
+        List <Project> projects = projectRepository.findAll(pageable).stream().toList();
+        return projects;
     }
 }
