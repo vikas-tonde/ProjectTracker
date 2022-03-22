@@ -39,9 +39,12 @@ public class ProjectController
         return projectService.getProjects();
     }
 
-    @GetMapping(value = "/count")
-    public long getCount()
+    @GetMapping(value = {"/count/{title}", "/count"})
+    public long getCount(@PathVariable(name="title", required = false ) String title)
     {
+        System.out.println("title = " + title);
+        if(title!=null && !title.equals(""))
+            return projectService.getCountByTitle(title);
         return projectService.getCount();
     }
 

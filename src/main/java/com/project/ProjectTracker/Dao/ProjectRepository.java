@@ -12,5 +12,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long>
 {
     Optional<List<Project>> findByTitleStartingWith(String title);
 
+    long countByTitleStartingWith(String title);
+
 
 }
