@@ -1,7 +1,9 @@
 package com.project.ProjectTracker.service;
 
 import com.project.ProjectTracker.Dao.ProjectRepository;
+import com.project.ProjectTracker.Dao.TaskRepository;
 import com.project.ProjectTracker.entity.Project;
+import com.project.ProjectTracker.entity.Task;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,6 +18,7 @@ import java.util.Optional;
 public class ProjectService {
 
     private ProjectRepository projectRepository;
+    private TaskRepository taskRepository;
 
     public long getCount()
     {
@@ -38,6 +41,11 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
+    public Task getProjects(long id)
+    {
+        return taskRepository.findAllByProject_pId(id).orElse(null);
+    }
+
     @Transactional
     public Project save(Project project) {
        return projectRepository.save(project);
@@ -46,7 +54,6 @@ public class ProjectService {
     public List<Project> getProject(int page) {
         Pageable pageable= PageRequest.of((page-1),4);
 
-        List <Project> projects = projectRepository.findAll(pageable).stream().toList();
-        return projects;
+        return projectRepository.findAll(pageable).stream().toList();
     }
 }

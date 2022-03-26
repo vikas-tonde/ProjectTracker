@@ -2,7 +2,12 @@ package com.project.ProjectTracker.Dao;
 
 import com.project.ProjectTracker.entity.Task;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface TaskRepository extends JpaRepository<Task, Long> {
+import java.util.Optional;
 
+@Repository
+public interface TaskRepository extends JpaRepository<Task, Long>
+{
+    Optional<Task> findAllByProject_pId(long id);
 }

@@ -1,7 +1,9 @@
 package com.project.ProjectTracker;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ProjectTrackingApplication {
@@ -10,4 +12,9 @@ public class ProjectTrackingApplication {
 		SpringApplication.run(ProjectTrackingApplication.class, args);
 	}
 
+	@Bean
+	public ModelMapper modelMapper()
+	{
+		return new ModelMapper();
+	}
 }

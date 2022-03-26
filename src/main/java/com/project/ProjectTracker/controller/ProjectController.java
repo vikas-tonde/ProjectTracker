@@ -1,8 +1,11 @@
 package com.project.ProjectTracker.controller;
 
 import com.project.ProjectTracker.entity.Project;
+import com.project.ProjectTracker.entity.Task;
 import com.project.ProjectTracker.service.ProjectService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -29,7 +32,6 @@ public class ProjectController
     @GetMapping(value="/getprojects/page/{page}")
     public List<Project> getProject(@PathVariable("page") int page)
     {
-
         return projectService.getProject(page);
     }
 
@@ -37,6 +39,15 @@ public class ProjectController
     public List<Project> getProjects()
     {
         return projectService.getProjects();
+    }
+
+    @GetMapping(value="/getproject/{id}")
+    public ResponseEntity<?> getProjects(@PathVariable("id") long pId)
+    {
+        Task task=projectService.getProjects(pId);
+        if(task!=null)
+            return ResponseEntity.ok(task);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = {"/count/{title}", "/count"})

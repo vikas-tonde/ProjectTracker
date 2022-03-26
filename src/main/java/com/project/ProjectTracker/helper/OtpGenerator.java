@@ -6,12 +6,10 @@ import java.security.SecureRandom;
 
 @Component
 public class OtpGenerator {
-    private StringBuilder otp;
 
     public String sendOtp()  {
         SecureRandom secureRandom = new SecureRandom();
-        otp = new StringBuilder();
-//        secureRandom=SecureRandom.getInstance(secureRandom.getAlgorithm());
+        StringBuilder otp = new StringBuilder();
         for(int i=0;i<6;i++)
         {
             otp.append(secureRandom.nextInt(0,9));

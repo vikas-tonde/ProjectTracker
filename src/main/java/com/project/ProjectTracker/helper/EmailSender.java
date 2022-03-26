@@ -2,7 +2,7 @@ package com.project.ProjectTracker.helper;
 
 import freemarker.template.Configuration;
 import jakarta.mail.internet.MimeMessage;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
@@ -12,12 +12,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
+@AllArgsConstructor
 public class EmailSender {
-    @Autowired
     private JavaMailSender javaMailSender;
 
-
-    @Autowired
     Configuration configuration;
 
     public void sendMail(String toMail,String username, String otp)

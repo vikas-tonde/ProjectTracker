@@ -28,13 +28,13 @@ public class Project
     private String description;
     private String progress;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "project_technology",
             joinColumns = { @JoinColumn(name = "p_id") },
             inverseJoinColumns = { @JoinColumn(name = "t_id") })
-    private List<Technology> technologies = new ArrayList<Technology>();
+    private List<Technology> technologies = new ArrayList<>();
 
-    @OneToMany(targetEntity = Task.class, mappedBy = "project", fetch = FetchType.LAZY)
-    private List<Task> tasks;
+//    @OneToMany(targetEntity = Task.class, mappedBy = "project", fetch = FetchType.EAGER)
+//    private List<Task> tasks;
 
 }

@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
-import java.util.List;
 /*
 This class is the entity class of User which is used
 to map the object with user table by spring data JPA
@@ -34,8 +33,8 @@ public class User {
     private String qualification;
     private boolean otpVerified;
 
-    @OneToMany(targetEntity = Task.class, mappedBy = "user", fetch = FetchType.LAZY)
-    private List<Task> tasks;
+//    @OneToMany(targetEntity = Task.class, mappedBy = "user", fetch = FetchType.EAGER)
+//    private List<Task> tasks;
 
 
     public User(User user) {

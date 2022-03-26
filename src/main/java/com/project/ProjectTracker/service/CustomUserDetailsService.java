@@ -3,7 +3,7 @@ package com.project.ProjectTracker.service;
 import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.entity.User;
 import com.project.ProjectTracker.models.CustomUserDetails;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
+@AllArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    @Autowired
     UserRepository userRepository;
 
     @Override
