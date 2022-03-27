@@ -11,6 +11,7 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskInfo {
+    private long taskId;
     private long uId;
     private String username;
     private String qualification;
