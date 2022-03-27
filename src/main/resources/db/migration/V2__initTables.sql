@@ -123,8 +123,16 @@ create table task(
     u_id bigint unsigned references  user(u_id),
     task varchar(50),
     assigned_on DATE,
-    completed_on date
+    completed_on date,
+    completed boolean
 );
+
+insert into task (p_id, u_id, task, assigned_on, completed)
+values (1,1,'Work on project', '2022-03-21',false);
+
+insert into task (p_id, u_id, task, assigned_on, completed)
+values (1,1,'Work on project2', '2022-03-21',false);
+
 
 
 create table client (

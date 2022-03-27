@@ -24,10 +24,11 @@ public class Task {
     private Project project;
 
     @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "u_id", insertable = false, updatable = false)
+    @JoinColumn(name = "u_id")
     private User user;
 
     private String task;
     private Date assigned_on;
     private Date completed_on;
+    private boolean completed;
 }

@@ -4,7 +4,11 @@ import com.project.ProjectTracker.Dao.ProjectRepository;
 import com.project.ProjectTracker.Dao.TaskRepository;
 import com.project.ProjectTracker.entity.Project;
 import com.project.ProjectTracker.entity.Task;
+import com.project.ProjectTracker.models.ProjectResponse;
+import com.project.ProjectTracker.models.TaskInfo;
 import lombok.AllArgsConstructor;
+import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
@@ -19,6 +25,7 @@ public class ProjectService {
 
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
+    private ModelMapper modelMapper;
 
     public long getCount()
     {
@@ -41,9 +48,19 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
-    public Task getProjects(long id)
+    public ProjectResponse getProjects(long id)
     {
-        return taskRepository.findAllByProject_pId(id).orElse(null);
+        ProjectResponse projectResponse= new ProjectResponse();
+
+        List<Task> tasks=taskRepository.findAllByProject_pId(id).orElse(null);
+        Set<Project> projects = tasks.stream().map(task -> task.getProject()).collect(Collectors.toSet());
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        projectResponse.setProjects(projects);
+        List<TaskInfo> taskInfoList = tasks.stream()
+                .map(task -> modelMapper.map(task, TaskInfo.class))
+                .collect(Collectors.toList());
+        projectResponse.setTaskInfoList(taskInfoList);
+        return projectResponse;
     }
 
     @Transactional

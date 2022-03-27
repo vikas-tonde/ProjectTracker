@@ -1,7 +1,7 @@
 package com.project.ProjectTracker.controller;
 
 import com.project.ProjectTracker.entity.Project;
-import com.project.ProjectTracker.entity.Task;
+import com.project.ProjectTracker.models.ProjectResponse;
 import com.project.ProjectTracker.service.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -44,9 +44,10 @@ public class ProjectController
     @GetMapping(value="/getproject/{id}")
     public ResponseEntity<?> getProjects(@PathVariable("id") long pId)
     {
-        Task task=projectService.getProjects(pId);
-        if(task!=null)
-            return ResponseEntity.ok(task);
+        ProjectResponse projectResponse = projectService.getProjects(pId);
+
+        if(projectResponse!=null)
+            return ResponseEntity.ok(projectResponse);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
