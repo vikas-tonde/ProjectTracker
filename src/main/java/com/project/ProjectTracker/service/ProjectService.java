@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -53,9 +52,9 @@ public class ProjectService {
         ProjectResponse projectResponse= new ProjectResponse();
 
         List<Task> tasks=taskRepository.findAllByProject_pId(id).orElse(null);
-        Set<Project> projects = tasks.stream().map(task -> task.getProject()).collect(Collectors.toSet());
+        assert tasks != null;
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        projectResponse.setProjects(projects);
+        projectResponse.setProject(tasks.get(0).getProject());
         List<TaskInfo> taskInfoList = tasks.stream()
                 .map(task -> modelMapper.map(task, TaskInfo.class))
                 .collect(Collectors.toList());
