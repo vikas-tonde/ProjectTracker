@@ -2,8 +2,10 @@ package com.project.ProjectTracker.service;
 
 import com.project.ProjectTracker.Dao.ProjectRepository;
 import com.project.ProjectTracker.Dao.TaskRepository;
+import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.entity.Project;
 import com.project.ProjectTracker.entity.Task;
+import com.project.ProjectTracker.models.Intern;
 import com.project.ProjectTracker.models.ProjectResponse;
 import com.project.ProjectTracker.models.TaskInfo;
 import lombok.AllArgsConstructor;
@@ -25,6 +27,7 @@ public class ProjectService {
     private ProjectRepository projectRepository;
     private TaskRepository taskRepository;
     private ModelMapper modelMapper;
+    private UserRepository userRepository;
 
     public long getCount()
     {
@@ -63,6 +66,10 @@ public class ProjectService {
             Optional<Project> project = projectRepository.findById(id);
             project.ifPresent(projectResponse::setProject);
         }
+        List<Intern> interns = userRepository.findAll().stream()
+                .map(user -> modelMapper.map(user, Intern.class))
+                .collect(Collectors.toList());
+        projectResponse.setInterns(interns);
         return projectResponse;
     }
 

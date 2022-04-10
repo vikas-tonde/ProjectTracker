@@ -13,5 +13,5 @@ import java.util.List;
 public class ProjectResponse {
     private Project project;
     private List<TaskInfo> taskInfoList;
-
+    private List<Intern> interns;
 }

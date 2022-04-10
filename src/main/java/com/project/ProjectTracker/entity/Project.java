@@ -24,7 +24,7 @@ public class Project
     private Date dateAdded;
     private Date deadline;
     private long cost;
-    private String priority;  //according to deadline(moderate, low, high)
+//    private String priority;  //according to deadline(moderate, low, high)
     private String description;
     private String progress;
 

@@ -60,4 +60,11 @@ public class ProjectController
         return projectService.getCount();
     }
 
+    //Edit existing project
+    @PostMapping(value = "project/update")
+    public boolean updateProject()
+    {
+        return true;
+    }
+
 }
