@@ -50,15 +50,19 @@ public class ProjectService {
     public ProjectResponse getProjects(long id)
     {
         ProjectResponse projectResponse= new ProjectResponse();
-
-        List<Task> tasks=taskRepository.findAllByProject_pId(id).orElse(null);
-        assert tasks != null;
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        projectResponse.setProject(tasks.get(0).getProject());
-        List<TaskInfo> taskInfoList = tasks.stream()
-                .map(task -> modelMapper.map(task, TaskInfo.class))
-                .collect(Collectors.toList());
-        projectResponse.setTaskInfoList(taskInfoList);
+        List<Task> tasks=taskRepository.findAllByProject_pId(id).orElse(null);
+        if(tasks!=null && (!tasks.isEmpty())) {
+            projectResponse.setProject(tasks.get(0).getProject());
+            List<TaskInfo> taskInfoList = tasks.stream()
+                    .map(task -> modelMapper.map(task, TaskInfo.class))
+                    .collect(Collectors.toList());
+            projectResponse.setTaskInfoList(taskInfoList);
+        }
+        else{
+            Optional<Project> project = projectRepository.findById(id);
+            project.ifPresent(projectResponse::setProject);
+        }
         return projectResponse;
     }
 
