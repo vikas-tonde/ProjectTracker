@@ -5,8 +5,10 @@ import com.project.ProjectTracker.Dao.TaskRepository;
 import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.entity.Project;
 import com.project.ProjectTracker.entity.Task;
+import com.project.ProjectTracker.entity.User;
 import com.project.ProjectTracker.models.Intern;
 import com.project.ProjectTracker.models.ProjectResponse;
+import com.project.ProjectTracker.models.ProjectUpdateRequest;
 import com.project.ProjectTracker.models.TaskInfo;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -29,40 +31,34 @@ public class ProjectService {
     private ModelMapper modelMapper;
     private UserRepository userRepository;
 
-    public long getCount()
-    {
+    public long getCount() {
         return projectRepository.count();
     }
 
-    public long getCountByTitle(String title)
-    {
+    public long getCountByTitle(String title) {
         return projectRepository.countByTitleStartingWith(title);
     }
 
-    public List<Project> getProjectSearch(String title)
-    {
-            Optional<List<Project>> project = projectRepository.findByTitleStartingWith(title);
-            return project.orElse(null);
+    public List<Project> getProjectSearch(String title) {
+        Optional<List<Project>> project = projectRepository.findByTitleStartingWith(title);
+        return project.orElse(null);
     }
 
-    public List<Project> getProjects()
-    {
+    public List<Project> getProjects() {
         return projectRepository.findAll();
     }
 
-    public ProjectResponse getProjects(long id)
-    {
-        ProjectResponse projectResponse= new ProjectResponse();
+    public ProjectResponse getProjects(long id) {
+        ProjectResponse projectResponse = new ProjectResponse();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        List<Task> tasks=taskRepository.findAllByProject_pId(id).orElse(null);
-        if(tasks!=null && (!tasks.isEmpty())) {
+        List<Task> tasks = taskRepository.findAllByProject_pId(id).orElse(null);
+        if (tasks != null && (!tasks.isEmpty())) {
             projectResponse.setProject(tasks.get(0).getProject());
             List<TaskInfo> taskInfoList = tasks.stream()
                     .map(task -> modelMapper.map(task, TaskInfo.class))
                     .collect(Collectors.toList());
             projectResponse.setTaskInfoList(taskInfoList);
-        }
-        else{
+        } else {
             Optional<Project> project = projectRepository.findById(id);
             project.ifPresent(projectResponse::setProject);
         }
@@ -75,12 +71,35 @@ public class ProjectService {
 
     @Transactional
     public Project save(Project project) {
-       return projectRepository.save(project);
+        return projectRepository.save(project);
     }
 
     public List<Project> getProject(int page) {
-        Pageable pageable= PageRequest.of((page-1),4);
+        Pageable pageable = PageRequest.of((page - 1), 4);
 
         return projectRepository.findAll(pageable).stream().toList();
     }
+
+    //Update project
+
+    @Transactional
+    public boolean updateProjectTask(ProjectUpdateRequest projectUpdateRequest) {
+        List<TaskInfo> taskInfoList = projectUpdateRequest.getTaskInfoList();
+        Optional<Project> project = projectRepository.findById(projectUpdateRequest.getPId());
+        List<Task> tasks = taskInfoList.stream()
+                .map(taskInfo -> {
+                            Task task = new Task();
+                            Optional<User> user = userRepository.findByUsername(taskInfo.getUsername());
+                            user.ifPresent(task::setUser);
+                            project.ifPresent(task::setProject);
+                            modelMapper.map(taskInfo, task);
+                            return task;
+                        }
+                )
+                .collect(Collectors.toList());
+
+        List<Task> tasksList = taskRepository.saveAll(tasks);
+        return tasksList != null && !tasksList.isEmpty();
+    }
+
 }

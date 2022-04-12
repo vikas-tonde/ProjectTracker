@@ -12,9 +12,7 @@ import java.sql.Date;
 @NoArgsConstructor
 public class TaskInfo {
     private long taskId;
-    private long uId;
     private String username;
-    private String qualification;
     private String task;
     private Date assigned_on;
     private Date completed_on;

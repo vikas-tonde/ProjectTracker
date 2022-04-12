@@ -23,7 +23,7 @@ public class Task {
     @JoinColumn(name = "p_id")
     private Project project;
 
-    @ManyToOne (fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "u_id")
     private User user;
 

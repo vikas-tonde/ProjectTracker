@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.stream.Collectors;
 
 @RestController
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 public class Home {
 
     @Autowired

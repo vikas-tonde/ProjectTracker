@@ -37,21 +37,4 @@ public class User {
 //    private List<Task> tasks;
 
 
-    public User(User user) {
-        this.uId = user.getUId();
-        this.username = user.getUsername();
-        this.password = user.getPassword();
-        this.address = user.getAddress();
-        this.phoneNo = user.getPhoneNo();
-        this.dob = user.getDob();
-        this.email = user.getEmail();
-        this.roles = user.getRoles();
-        this.verificationCode = user.getVerificationCode();
-        this.otpVerified= user.isOtpVerified();
-        this.firstName= user.getFirstName();
-        this.lastName= user.getLastName();
-        this.qualification= user.getQualification();
-
-    }
-
 }

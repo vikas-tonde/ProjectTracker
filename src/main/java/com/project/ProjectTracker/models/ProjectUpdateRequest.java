@@ -5,17 +5,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @Data
 @AllArgsConstructor
 public class ProjectUpdateRequest {
     private long pId;
-    private String title;
-    private Date dateAdded;
     private Date deadline;
-    private long cost;
-
     private String description;
-    private String progress;
+
+    private List<TaskInfo> taskInfoList;
 }

@@ -15,8 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class Project
-{
+public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long pId;
@@ -24,14 +23,14 @@ public class Project
     private Date dateAdded;
     private Date deadline;
     private long cost;
-//    private String priority;  //according to deadline(moderate, low, high)
+    //    private String priority;  //according to deadline(moderate, low, high)
     private String description;
     private String progress;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(name = "project_technology",
-            joinColumns = { @JoinColumn(name = "p_id") },
-            inverseJoinColumns = { @JoinColumn(name = "t_id") })
+            joinColumns = {@JoinColumn(name = "p_id")},
+            inverseJoinColumns = {@JoinColumn(name = "t_id")})
     private List<Technology> technologies = new ArrayList<>();
 
 //    @OneToMany(targetEntity = Task.class, mappedBy = "project", fetch = FetchType.EAGER)
