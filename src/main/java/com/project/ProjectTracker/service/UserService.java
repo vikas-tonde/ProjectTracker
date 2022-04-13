@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +24,7 @@ public class UserService {
     private UserRepository userRepository;
     private ModelMapper modelMapper;
     private TaskRepository taskRepository;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public List<UserInfoResponse> getAllUsersPage(int page) {
 
@@ -42,6 +44,8 @@ public class UserService {
 
     @Transactional
     public User addUser(User user) {
+        String encode = bCryptPasswordEncoder.encode(user.getPassword());
+        user.setPassword(encode);
         return userRepository.save(user);
     }
 }
