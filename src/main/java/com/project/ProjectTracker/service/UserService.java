@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -22,13 +23,13 @@ public class UserService {
     private UserRepository userRepository;
     private ModelMapper modelMapper;
     private TaskRepository taskRepository;
-    public List<UserInfoResponse> getAllUsersPage(int page)
-    {
+
+    public List<UserInfoResponse> getAllUsersPage(int page) {
 
         //TODO: do custom mapping of user and task
 
-        Pageable pageable= PageRequest.of((page-1),4);
-        Page<User> users =userRepository.findAll(pageable);
+        Pageable pageable = PageRequest.of((page - 1), 4);
+        Page<User> users = userRepository.findAll(pageable);
 //        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE)
         return users.stream()
                 .map(user -> modelMapper.map(user, UserInfoResponse.class))
@@ -37,5 +38,10 @@ public class UserService {
 
     public List<Task> getTasks() {
         return taskRepository.findAll();
+    }
+
+    @Transactional
+    public User addUser(User user) {
+        return userRepository.save(user);
     }
 }

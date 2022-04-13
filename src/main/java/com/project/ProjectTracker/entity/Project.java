@@ -5,8 +5,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.sql.Date;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "project", uniqueConstraints = {@UniqueConstraint(columnNames = {"title"})})
@@ -27,13 +25,15 @@ public class Project {
     private String description;
     private String progress;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "project_technology",
-            joinColumns = {@JoinColumn(name = "p_id")},
-            inverseJoinColumns = {@JoinColumn(name = "t_id")})
-    private List<Technology> technologies = new ArrayList<>();
+    //    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+//    @JoinTable(name = "project_technology",
+//            joinColumns = {@JoinColumn(name = "p_id")},
+//            inverseJoinColumns = {@JoinColumn(name = "t_id")})
+//    private List<Technology> technologies = new ArrayList<>();
 
-//    @OneToMany(targetEntity = Task.class, mappedBy = "project", fetch = FetchType.EAGER)
+    private String technologies;
+
+    //    @OneToMany(targetEntity = Task.class, mappedBy = "project", fetch = FetchType.EAGER)
 //    private List<Task> tasks;
 
 }

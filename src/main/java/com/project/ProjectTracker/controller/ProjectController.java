@@ -1,6 +1,7 @@
 package com.project.ProjectTracker.controller;
 
 import com.project.ProjectTracker.entity.Project;
+import com.project.ProjectTracker.models.ProjectDto;
 import com.project.ProjectTracker.models.ProjectResponse;
 import com.project.ProjectTracker.models.ProjectUpdateRequest;
 import com.project.ProjectTracker.service.ProjectService;
@@ -17,18 +18,18 @@ import java.util.List;
 public class ProjectController {
     private ProjectService projectService;
 
-    @PostMapping(value = "/addproject")
+    @PostMapping(value = "/project/add")
     public Project addProject(@RequestBody Project project) {
         return projectService.save(project);
     }
 
     @GetMapping(value = "/getprojects/search/{project}")
-    public List<Project> getProject(@PathVariable("project") String projectName) {
+    public List<ProjectDto> getProject(@PathVariable("project") String projectName) {
         return projectService.getProjectSearch(projectName);
     }
 
     @GetMapping(value = "/getprojects/page/{page}")
-    public List<Project> getProject(@PathVariable("page") int page) {
+    public List<ProjectDto> getProject(@PathVariable("page") int page) {
         return projectService.getProject(page);
     }
 

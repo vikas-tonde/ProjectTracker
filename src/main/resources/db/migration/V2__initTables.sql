@@ -33,10 +33,11 @@ create table project (
     cost decimal(15,0),
     priority varchar(9),
     description text,
-    progress varchar(10)
+    progress varchar(10),
+    technologies text
 );
 
-create table technology (
+/*create table technology (
   t_id bigint unsigned AUTO_INCREMENT primary key,
   technology_name varchar(30) unique
 );
@@ -60,47 +61,47 @@ create table project_technology(
     p_id bigint unsigned references project(p_id),
     t_id bigint unsigned references technology(t_id),
     primary key (p_id, t_id)
-);
+);*/
 
 
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
+insert into project (title, date_added, deadline, cost, priority, description, progress,technologies)
 values ('Random Project', '2022-3-19', '2022-9-09', 5000,null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '80');
+        '80','java,HTML,React');
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
+insert into project (title, date_added, deadline, cost, priority, description, progress,technologies)
 values ('Non Random Project', '2022-3-19', '2022-9-09', 5000,null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '60');
+        '60','Wordpress');
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
+insert into project (title, date_added, deadline, cost, priority, description, progress,technologies)
 values ('very Random Project', '2022-3-19', '2022-9-09', 5000,null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '70');
+        '70', 'Mongodb');
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
+insert into project (title, date_added, deadline, cost, priority, description, progress,technologies)
 values ('So much Random Project', '2022-3-19', '2022-9-09', 5000,null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '20');
+        '20','spring');
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
 values ('Significant', '2022-3-19', '2022-9-09', 5000,null,
         'This is Significant project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '50');
+        '50', 'Node JS');
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
 values ('The website of websites', '2022-3-19', '2022-9-09', 5000,null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '69');
+        '69', 'Android');
 
-insert into project (title, date_added, deadline, cost, priority, description, progress)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
 values ('A project of final year student', '2022-3-19', '2022-9-09', 5000,null,
         'This is not much random as others This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '45');
+        '45', 'Flutter');
 
 
-insert into project_technology values (1,2);
+/*insert into project_technology values (1,2);
 insert into project_technology values (1,8);
 insert into project_technology values (1,10);
 insert into project_technology values (2,5);
@@ -114,7 +115,7 @@ insert into project_technology values (5,7);
 insert into project_technology values (6,2);
 insert into project_technology values (6,9);
 insert into project_technology values (7,10);
-insert into project_technology values (7,11);
+insert into project_technology values (7,11);*/
 
 
 create table task(

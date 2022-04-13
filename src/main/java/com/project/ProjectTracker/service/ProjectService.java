@@ -6,10 +6,7 @@ import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.entity.Project;
 import com.project.ProjectTracker.entity.Task;
 import com.project.ProjectTracker.entity.User;
-import com.project.ProjectTracker.models.Intern;
-import com.project.ProjectTracker.models.ProjectResponse;
-import com.project.ProjectTracker.models.ProjectUpdateRequest;
-import com.project.ProjectTracker.models.TaskInfo;
+import com.project.ProjectTracker.models.*;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
@@ -39,9 +36,12 @@ public class ProjectService {
         return projectRepository.countByTitleStartingWith(title);
     }
 
-    public List<Project> getProjectSearch(String title) {
-        Optional<List<Project>> project = projectRepository.findByTitleStartingWith(title);
-        return project.orElse(null);
+    public List<ProjectDto> getProjectSearch(String title) {
+        Optional<List<Project>> projects = projectRepository.findByTitleStartingWith(title);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        return projects.map(projectList -> projectList.stream()
+                .map(project -> modelMapper.map(project, ProjectDto.class))
+                .collect(Collectors.toList())).orElse(null);
     }
 
     public List<Project> getProjects() {
@@ -53,14 +53,14 @@ public class ProjectService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         List<Task> tasks = taskRepository.findAllByProject_pId(id).orElse(null);
         if (tasks != null && (!tasks.isEmpty())) {
-            projectResponse.setProject(tasks.get(0).getProject());
+            projectResponse.setProject(modelMapper.map(tasks.get(0).getProject(),ProjectDto.class));
             List<TaskInfo> taskInfoList = tasks.stream()
                     .map(task -> modelMapper.map(task, TaskInfo.class))
                     .collect(Collectors.toList());
             projectResponse.setTaskInfoList(taskInfoList);
         } else {
             Optional<Project> project = projectRepository.findById(id);
-            project.ifPresent(projectResponse::setProject);
+            project.ifPresent(value -> projectResponse.setProject(modelMapper.map(value, ProjectDto.class)));
         }
         List<Intern> interns = userRepository.findAll().stream()
                 .map(user -> modelMapper.map(user, Intern.class))
@@ -74,10 +74,13 @@ public class ProjectService {
         return projectRepository.save(project);
     }
 
-    public List<Project> getProject(int page) {
+    public List<ProjectDto> getProject(int page) {
         Pageable pageable = PageRequest.of((page - 1), 4);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
 
-        return projectRepository.findAll(pageable).stream().toList();
+        return projectRepository.findAll(pageable).stream()
+                .map(project -> modelMapper.map(project,ProjectDto.class))
+                .collect(Collectors.toList());
     }
 
     //Update project
