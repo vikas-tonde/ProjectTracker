@@ -22,8 +22,8 @@ public class ProjectDto {
     @Setter(value = AccessLevel.NONE)
     private String technologies;
 
-    public String[] getTechnologies() {
-        return technologies.split(",");
+    public String getTechnologies() {
+        return technologies;
     }
 
     public void setTechnologies(String technologies) {
