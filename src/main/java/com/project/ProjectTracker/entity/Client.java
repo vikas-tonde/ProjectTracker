@@ -6,7 +6,7 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "client", uniqueConstraints = {@UniqueConstraint(columnNames = {"client_name"})})
+@Table(name = "client", uniqueConstraints = {@UniqueConstraint(columnNames = {"clientName"})})
 @Getter
 @Setter
 @AllArgsConstructor
@@ -23,7 +23,7 @@ public class Client {
     private String email;
     private String address;
 
-    @OneToMany
+    @OneToMany(fetch =FetchType.EAGER )
     @JoinColumn(name = "c_id")
     private List<Project> projects;
 
