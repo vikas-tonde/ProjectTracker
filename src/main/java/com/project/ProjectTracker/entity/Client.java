@@ -23,7 +23,7 @@ public class Client {
     private String email;
     private String address;
 
-    @OneToMany(fetch =FetchType.EAGER )
+    @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "c_id")
     private List<Project> projects;
 
