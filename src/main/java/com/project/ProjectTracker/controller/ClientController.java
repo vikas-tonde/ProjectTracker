@@ -4,10 +4,9 @@ package com.project.ProjectTracker.controller;
 import com.project.ProjectTracker.entity.Client;
 import com.project.ProjectTracker.service.ClientService;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -20,4 +19,10 @@ public class ClientController {
     public Client addClient(@RequestBody Client client) {
         return clientService.addClient(client);
     }
+
+    @GetMapping("/client/names")
+    public List<String> getClientNames() {
+        return clientService.getClientNames();
+    }
+
 }
