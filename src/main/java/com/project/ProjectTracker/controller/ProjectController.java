@@ -19,8 +19,8 @@ public class ProjectController {
     private ProjectService projectService;
 
     @PostMapping(value = "/project/add")
-    public Project addProject(@RequestBody Project project) {
-        return projectService.save(project);
+    public Project addProject(@RequestBody ProjectDto projectDto) {
+        return projectService.save(projectDto);
     }
 
     @GetMapping(value = "/getprojects/search/{project}")

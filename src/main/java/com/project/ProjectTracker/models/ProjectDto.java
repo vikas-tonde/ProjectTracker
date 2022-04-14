@@ -1,7 +1,9 @@
 package com.project.ProjectTracker.models;
 
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
 
@@ -17,16 +19,6 @@ public class ProjectDto {
     //    private String priority;  //according to deadline(moderate, low, high)
     private String description;
     private String progress;
-
-    @Getter(value = AccessLevel.NONE)
-    @Setter(value = AccessLevel.NONE)
     private String technologies;
-
-    public String getTechnologies() {
-        return technologies;
-    }
-
-    public void setTechnologies(String technologies) {
-        this.technologies = technologies;
-    }
+    private String clientName;
 }

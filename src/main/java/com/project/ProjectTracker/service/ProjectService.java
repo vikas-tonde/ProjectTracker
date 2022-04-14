@@ -1,8 +1,10 @@
 package com.project.ProjectTracker.service;
 
+import com.project.ProjectTracker.Dao.ClientRepository;
 import com.project.ProjectTracker.Dao.ProjectRepository;
 import com.project.ProjectTracker.Dao.TaskRepository;
 import com.project.ProjectTracker.Dao.UserRepository;
+import com.project.ProjectTracker.entity.Client;
 import com.project.ProjectTracker.entity.Project;
 import com.project.ProjectTracker.entity.Task;
 import com.project.ProjectTracker.entity.User;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -27,6 +30,7 @@ public class ProjectService {
     private TaskRepository taskRepository;
     private ModelMapper modelMapper;
     private UserRepository userRepository;
+    private ClientRepository clientRepository;
 
     public long getCount() {
         return projectRepository.count();
@@ -70,8 +74,15 @@ public class ProjectService {
     }
 
     @Transactional
-    public Project save(Project project) {
-        return projectRepository.save(project);
+    public Project save(ProjectDto projectDto) {
+        Project project = modelMapper.map(projectDto, Project.class);
+        Client client = clientRepository.findByClientName(projectDto.getClientName());
+        ArrayList<Project> projects = new ArrayList<>();
+        Project savedProject = projectRepository.save(project);
+        projects.add(savedProject);
+        client.setProjects(projects);
+        clientRepository.save(client);
+        return savedProject;
     }
 
     public List<ProjectDto> getProject(int page) {
