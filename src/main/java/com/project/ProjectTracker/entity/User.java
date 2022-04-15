@@ -19,7 +19,7 @@ to map the object with user table by spring data JPA
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long uId;
+    private Long uId;
     private String firstName;
     private String lastName;
     private String username;
