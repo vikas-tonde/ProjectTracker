@@ -20,6 +20,13 @@ public class ClientController {
         return clientService.addClient(client);
     }
 
+    @GetMapping("/clients/page/{page}")
+    public List<Client> getALlClientPage(@PathVariable int page)
+    {
+        return clientService.getAllClientPage(page);
+    }
+
+
     @GetMapping("/client/names")
     public List<String> getClientNames() {
         return clientService.getClientNames();
