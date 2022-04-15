@@ -46,10 +46,10 @@ public class UserController {
 
     //Edit User
 
-//    @PostMapping("/user/update")
-//    public boolean updateUser(@RequestBody User user)
-//    {
-//        return userService
-//    }
+    @PostMapping("/user/update")
+    public boolean updateUser(@RequestBody User user)
+    {
+        return userService.updateUser(user);
+    }
 
 }

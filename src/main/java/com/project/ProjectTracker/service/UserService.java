@@ -11,6 +11,9 @@ import com.project.ProjectTracker.models.UserInfoResponse;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +21,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -72,13 +76,30 @@ public class UserService {
         return userRepository.save(user);
     }
 
-   /* public boolean updateUser(User user)
+    public boolean updateUser(User user)
     {
         Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
         if(optionalUser.isPresent())
         {
             User userToSave=optionalUser.get();
+            BeanUtils.copyProperties(user,userToSave,getNullPropertyNames(user));
 
+            User user1=userRepository.save(userToSave);
+            return user1.getUId()!=0;
         }
-    }*/
+        return false;
+    }
+
+    private String[] getNullPropertyNames (Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+        Set emptyNames = new HashSet();
+        for(java.beans.PropertyDescriptor pd : pds) {
+            //check if value of this property is null then add it to the collection
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) emptyNames.add(pd.getName());
+        }
+        String[] result = new String[emptyNames.size()];
+        return (String[]) emptyNames.toArray(result);
+    }
 }
