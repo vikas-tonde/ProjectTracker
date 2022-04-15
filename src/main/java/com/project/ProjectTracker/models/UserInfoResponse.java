@@ -1,12 +1,12 @@
 package com.project.ProjectTracker.models;
 
-import com.project.ProjectTracker.entity.Task;
+import com.project.ProjectTracker.entity.Project;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -23,5 +23,5 @@ public class UserInfoResponse {
     private String email;
     private String qualification;
 
-    private List<Task> tasks;
+    private Set<Project> projects;
 }

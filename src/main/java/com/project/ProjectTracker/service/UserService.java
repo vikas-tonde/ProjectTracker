@@ -3,6 +3,7 @@ package com.project.ProjectTracker.service;
 
 import com.project.ProjectTracker.Dao.TaskRepository;
 import com.project.ProjectTracker.Dao.UserRepository;
+import com.project.ProjectTracker.entity.Project;
 import com.project.ProjectTracker.entity.Task;
 import com.project.ProjectTracker.entity.User;
 import com.project.ProjectTracker.models.TaskDto;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,11 +51,18 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public User getUser(String username) {
+    public UserInfoResponse getUser(String username) {
         Optional<User> optionalUser = userRepository.findByUsername(username);
-        User user=optionalUser.orElse(null);
-        user.setPassword(null);
-        return user;
+        if (optionalUser.isPresent()) {
+            modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+            UserInfoResponse userInfoResponse = modelMapper.map(optionalUser.get(), UserInfoResponse.class);
+            List<Task> tasks = taskRepository.findAllByUser_Username(userInfoResponse.getUsername());
+            Set<Project> projects = tasks.stream().map(task -> task.getProject())
+                    .collect(Collectors.toSet());
+            userInfoResponse.setProjects(projects);
+            return userInfoResponse;
+        }
+        return null;
     }
 
     @Transactional

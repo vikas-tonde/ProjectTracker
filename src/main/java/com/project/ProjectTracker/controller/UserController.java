@@ -38,9 +38,9 @@ public class UserController {
 
     @GetMapping("/user/info/{username}")
     public ResponseEntity<?> getUser(@PathVariable String username) {
-        User user = userService.getUser(username);
-        if (user != null)
-            return ResponseEntity.ok(user);
+        UserInfoResponse userInfoResponse = userService.getUser(username);
+        if (userInfoResponse!=null)
+            return ResponseEntity.ok(userInfoResponse);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
