@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -49,7 +50,10 @@ public class UserService {
     }
 
     public User getUser(String username) {
-        return userRepository.findByUsername(username).orElse(null);
+        Optional<User> optionalUser = userRepository.findByUsername(username);
+        User user=optionalUser.orElse(null);
+        user.setPassword(null);
+        return user;
     }
 
     @Transactional
