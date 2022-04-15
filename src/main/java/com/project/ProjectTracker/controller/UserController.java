@@ -22,6 +22,21 @@ public class UserController {
         return userService.getAllUsersPage(page);
     }
 
+
+    @GetMapping(value = {"/users/count/{username}", "/users/count"})
+    public long getCount(@PathVariable(name = "username", required = false) String username) {
+        System.out.println("title = " + username);
+        if (username != null && !username.equals(""))
+            return userService.getCountByUsername(username);
+        return userService.getCount();
+    }
+
+    @GetMapping("/users/search/{username}")
+    public List<UserInfoResponse> getUserSearch(@PathVariable String username) {
+        return userService.getUserSearch(username);
+    }
+
+
     @GetMapping("/user/tasks/{username}")
     public ResponseEntity<?> getAllTasks(@PathVariable String username) {
         if (!username.equals("") && username != null)
@@ -39,7 +54,7 @@ public class UserController {
     @GetMapping("/user/info/{username}")
     public ResponseEntity<?> getUser(@PathVariable String username) {
         UserInfoResponse userInfoResponse = userService.getUser(username);
-        if (userInfoResponse!=null)
+        if (userInfoResponse != null)
             return ResponseEntity.ok(userInfoResponse);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -47,8 +62,7 @@ public class UserController {
     //Edit User
 
     @PostMapping("/user/update")
-    public boolean updateUser(@RequestBody User user)
-    {
+    public boolean updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
 

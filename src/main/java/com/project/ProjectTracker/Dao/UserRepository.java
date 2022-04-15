@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -15,6 +16,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByUsernameAndVerificationCode(String username, String otp);
 
     Page<User> findAll(Pageable pageable);
+
+    Optional<List<User>> findByUsernameStartsWith(String username);
+    long countByUsernameStartingWith(String username);
 
 //    Optional<User> findByUsername(String username);
 }

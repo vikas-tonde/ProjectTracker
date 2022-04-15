@@ -47,6 +47,19 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
+    public long getCountByUsername(String username)
+    {
+        return userRepository.countByUsernameStartingWith(username);
+    }
+    public List<UserInfoResponse> getUserSearch(String username) {
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        Optional<List<User>> users = userRepository.findByUsernameStartsWith(username);
+        return users.map(users1 -> users1.stream()
+                .map(user -> modelMapper.map(user,UserInfoResponse.class))
+                .collect(Collectors.toList())
+        ).orElse(null);
+    }
+
     public List<TaskDto> getTasks(String username) {
         List<Task> tasks = taskRepository.findAllByUser_UsernameAndCompletedIsFalse(username);
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
@@ -61,7 +74,7 @@ public class UserService {
             modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
             UserInfoResponse userInfoResponse = modelMapper.map(optionalUser.get(), UserInfoResponse.class);
             List<Task> tasks = taskRepository.findAllByUser_Username(userInfoResponse.getUsername());
-            Set<Project> projects = tasks.stream().map(task -> task.getProject())
+            Set<Project> projects = tasks.stream().map(Task::getProject)
                     .collect(Collectors.toSet());
             userInfoResponse.setProjects(projects);
             return userInfoResponse;
@@ -76,30 +89,32 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean updateUser(User user)
-    {
+    public boolean updateUser(User user) {
         Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
-        if(optionalUser.isPresent())
-        {
-            User userToSave=optionalUser.get();
-            BeanUtils.copyProperties(user,userToSave,getNullPropertyNames(user));
+        if (optionalUser.isPresent()) {
+            User userToSave = optionalUser.get();
+            BeanUtils.copyProperties(user, userToSave, getNullPropertyNames(user));
 
-            User user1=userRepository.save(userToSave);
-            return user1.getUId()!=0;
+            User user1 = userRepository.save(userToSave);
+            return user1.getUId() != 0;
         }
         return false;
     }
 
-    private String[] getNullPropertyNames (Object source) {
+    private String[] getNullPropertyNames(Object source) {
         final BeanWrapper src = new BeanWrapperImpl(source);
         java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
-        Set emptyNames = new HashSet();
-        for(java.beans.PropertyDescriptor pd : pds) {
+        HashSet emptyNames = new HashSet();
+        for (java.beans.PropertyDescriptor pd : pds) {
             //check if value of this property is null then add it to the collection
             Object srcValue = src.getPropertyValue(pd.getName());
             if (srcValue == null) emptyNames.add(pd.getName());
         }
         String[] result = new String[emptyNames.size()];
         return (String[]) emptyNames.toArray(result);
+    }
+
+    public long getCount() {
+        return userRepository.count();
     }
 }
