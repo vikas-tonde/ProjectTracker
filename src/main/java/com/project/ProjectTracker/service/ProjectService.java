@@ -98,22 +98,34 @@ public class ProjectService {
 
     @Transactional
     public boolean updateProjectTask(ProjectUpdateRequest projectUpdateRequest) {
+        System.out.println("projectUpdateRequest = " + projectUpdateRequest);
         List<TaskInfo> taskInfoList = projectUpdateRequest.getTaskInfoList();
         Optional<Project> project = projectRepository.findById(projectUpdateRequest.getPId());
-        List<Task> tasks = taskInfoList.stream()
-                .map(taskInfo -> {
-                            Task task = new Task();
-                            Optional<User> user = userRepository.findByUsername(taskInfo.getUsername());
-                            user.ifPresent(task::setUser);
-                            project.ifPresent(task::setProject);
-                            modelMapper.map(taskInfo, task);
-                            return task;
-                        }
-                )
-                .collect(Collectors.toList());
+        if(project.isPresent()) {
+            if(projectUpdateRequest.getDeadline()!=null)
+            {
+                project.get().setDeadline(projectUpdateRequest.getDeadline());
+            }
+            if(projectUpdateRequest.getDescription()!=null)
+            {
+                project.get().setDescription(projectUpdateRequest.getDescription());
+            }
+            List<Task> tasks = taskInfoList.stream()
+                    .map(taskInfo -> {
+                                Task task = new Task();
+                                Optional<User> user = userRepository.findByUsername(taskInfo.getUsername());
+                                user.ifPresent(task::setUser);
+                                project.ifPresent(task::setProject);
+                                modelMapper.map(taskInfo, task);
+                                return task;
+                            }
+                    )
+                    .collect(Collectors.toList());
 
-        List<Task> tasksList = taskRepository.saveAll(tasks);
-        return tasksList != null && !tasksList.isEmpty();
+            List<Task> tasksList = taskRepository.saveAll(tasks);
+            return tasksList != null && !tasksList.isEmpty();
+        }
+        return false;
     }
 
 }

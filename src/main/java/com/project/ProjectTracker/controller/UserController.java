@@ -44,5 +44,12 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    //Edit User
+
+//    @PostMapping("/user/update")
+//    public boolean updateUser(@RequestBody User user)
+//    {
+//        return userService
+//    }
 
 }

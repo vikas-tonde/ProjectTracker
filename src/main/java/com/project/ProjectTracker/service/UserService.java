@@ -71,4 +71,14 @@ public class UserService {
         user.setPassword(encode);
         return userRepository.save(user);
     }
+
+   /* public boolean updateUser(User user)
+    {
+        Optional<User> optionalUser = userRepository.findByUsername(user.getUsername());
+        if(optionalUser.isPresent())
+        {
+            User userToSave=optionalUser.get();
+
+        }
+    }*/
 }
