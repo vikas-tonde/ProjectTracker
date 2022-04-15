@@ -1,7 +1,6 @@
 package com.project.ProjectTracker.controller;
 
 import com.project.ProjectTracker.entity.User;
-import com.project.ProjectTracker.models.TaskDto;
 import com.project.ProjectTracker.models.UserInfoResponse;
 import com.project.ProjectTracker.service.UserService;
 import lombok.AllArgsConstructor;
@@ -24,8 +23,10 @@ public class UserController {
     }
 
     @GetMapping("/user/tasks/{username}")
-    public List<TaskDto> getAllTasks(@PathVariable String username) {
-        return userService.getTasks(username);
+    public ResponseEntity<?> getAllTasks(@PathVariable String username) {
+        if (!username.equals("") && username != null)
+            return ResponseEntity.ok(userService.getTasks(username));
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     //Add user
@@ -36,10 +37,9 @@ public class UserController {
     }
 
     @GetMapping("/user/info/{username}")
-    public ResponseEntity<?> getUser(@PathVariable String username)
-    {
+    public ResponseEntity<?> getUser(@PathVariable String username) {
         User user = userService.getUser(username);
-        if(user!=null)
+        if (user != null)
             return ResponseEntity.ok(user);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
