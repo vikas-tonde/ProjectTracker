@@ -32,4 +32,17 @@ public class ClientController {
         return clientService.getClientNames();
     }
 
+    @GetMapping("/clients/search/{clientName}")
+    public List<Client> getUserSearch(@PathVariable String clientName) {
+        return clientService.getClientSearch(clientName);
+    }
+
+    @GetMapping(value = {"/clients/count/{clientName}", "/clients/count"})
+    public long getCount(@PathVariable(name = "clientName", required = false) String clientName) {
+        System.out.println("title = " + clientName);
+        if (clientName != null && !clientName.equals(""))
+            return clientService.getCountByClientName(clientName);
+        return clientService.getCount();
+    }
+
 }

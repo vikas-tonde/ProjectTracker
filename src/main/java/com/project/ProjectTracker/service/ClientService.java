@@ -8,7 +8,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,8 +23,7 @@ public class ClientService {
         return clientRepository.save(client);
     }
 
-    public List<Client> getAllClientPage(int page)
-    {
+    public List<Client> getAllClientPage(int page) {
         Pageable pageable = PageRequest.of((page - 1), 4);
         Page<Client> clientPage = clientRepository.findAll(pageable);
         return clientPage.stream().toList();
@@ -34,4 +35,16 @@ public class ClientService {
                 .collect(Collectors.toList());
     }
 
+    public List<Client> getClientSearch(String clientName) {
+        Optional<List<Client>> clients = clientRepository.findAllByClientNameStartingWith(clientName);
+        return clients.map(ArrayList::new).orElse(null);
+    }
+
+    public long getCount() {
+        return clientRepository.count();
+    }
+
+    public long getCountByClientName(String clientName) {
+        return clientRepository.countByClientNameStartingWith(clientName);
+    }
 }
