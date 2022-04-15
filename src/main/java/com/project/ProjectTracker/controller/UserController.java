@@ -1,10 +1,12 @@
 package com.project.ProjectTracker.controller;
 
-import com.project.ProjectTracker.entity.Task;
 import com.project.ProjectTracker.entity.User;
+import com.project.ProjectTracker.models.TaskDto;
 import com.project.ProjectTracker.models.UserInfoResponse;
 import com.project.ProjectTracker.service.UserService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +23,9 @@ public class UserController {
         return userService.getAllUsersPage(page);
     }
 
-    @GetMapping("/users/tasks")
-    public List<Task> getAllTasks() {
-        return userService.getTasks();
+    @GetMapping("/user/tasks/{username}")
+    public List<TaskDto> getAllTasks(@PathVariable String username) {
+        return userService.getTasks(username);
     }
 
     //Add user
@@ -31,6 +33,15 @@ public class UserController {
     @PostMapping("/user/add")
     public User addUser(@RequestBody User user) {
         return userService.addUser(user);
+    }
+
+    @GetMapping("/user/info/{username}")
+    public ResponseEntity<?> getUser(@PathVariable String username)
+    {
+        User user = userService.getUser(username);
+        if(user!=null)
+            return ResponseEntity.ok(user);
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }

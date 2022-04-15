@@ -5,9 +5,11 @@ import com.project.ProjectTracker.Dao.TaskRepository;
 import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.entity.Task;
 import com.project.ProjectTracker.entity.User;
+import com.project.ProjectTracker.models.TaskDto;
 import com.project.ProjectTracker.models.UserInfoResponse;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -38,8 +40,16 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public List<Task> getTasks() {
-        return taskRepository.findAll();
+    public List<TaskDto> getTasks(String username) {
+        List<Task> tasks = taskRepository.findAllByUser_UsernameAndCompletedIsFalse(username);
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        return tasks.stream().map(
+                        task -> modelMapper.map(task, TaskDto.class))
+                .collect(Collectors.toList());
+    }
+
+    public User getUser(String username) {
+        return userRepository.findByUsername(username).orElse(null);
     }
 
     @Transactional

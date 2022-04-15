@@ -24,5 +24,4 @@ public class ClientService {
                 .collect(Collectors.toList());
     }
 
-
 }
