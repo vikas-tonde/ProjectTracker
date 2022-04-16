@@ -1,13 +1,7 @@
 package com.project.ProjectTracker.service;
 
-import com.project.ProjectTracker.Dao.ClientRepository;
-import com.project.ProjectTracker.Dao.ProjectRepository;
-import com.project.ProjectTracker.Dao.TaskRepository;
-import com.project.ProjectTracker.Dao.UserRepository;
-import com.project.ProjectTracker.entity.Client;
-import com.project.ProjectTracker.entity.Project;
-import com.project.ProjectTracker.entity.Task;
-import com.project.ProjectTracker.entity.User;
+import com.project.ProjectTracker.Dao.*;
+import com.project.ProjectTracker.entity.*;
 import com.project.ProjectTracker.models.*;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -30,6 +24,8 @@ public class ProjectService {
     private ModelMapper modelMapper;
     private UserRepository userRepository;
     private ClientRepository clientRepository;
+    private PhaseRepository phaseRepository;
+    private PhaseService phaseService;
 
     public long getCount() {
         return projectRepository.count();
@@ -47,24 +43,30 @@ public class ProjectService {
                 .collect(Collectors.toList())).orElse(null);
     }
 
-    public List<Project> getProjects() {
-        return projectRepository.findAll();
-    }
 
     public ProjectResponse getProjects(long id) {
         ProjectResponse projectResponse = new ProjectResponse();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         List<Task> tasks = taskRepository.findAllByProject_pId(id).orElse(null);
+        Project project;
         if (tasks != null && (!tasks.isEmpty())) {
-            projectResponse.setProject(modelMapper.map(tasks.get(0).getProject(),ProjectDto.class));
+            projectResponse.setProject(modelMapper.map(tasks.get(0).getProject(), ProjectDto.class));
+            projectResponse.setPhaseName(tasks.get(0).getProject().getPhase().getPhaseName());
+            project = tasks.get(0).getProject();
             List<TaskInfo> taskInfoList = tasks.stream()
                     .map(task -> modelMapper.map(task, TaskInfo.class))
                     .collect(Collectors.toList());
             projectResponse.setTaskInfoList(taskInfoList);
         } else {
-            Optional<Project> project = projectRepository.findById(id);
-            project.ifPresent(value -> projectResponse.setProject(modelMapper.map(value, ProjectDto.class)));
+            Optional<Project> project1 = projectRepository.findById(id);
+            project1.ifPresent(value -> {
+                        projectResponse.setProject(modelMapper.map(value, ProjectDto.class));
+                        projectResponse.setPhaseName(value.getPhase().getPhaseName());
+                    }
+            );
+            project = project1.get();
         }
+        projectResponse.setExpectedPhaseCompletionDate(phaseService.getExpectedCompletionDate(project));
         List<Intern> interns = userRepository.findAll().stream()
                 .map(user -> modelMapper.map(user, Intern.class))
                 .collect(Collectors.toList());
@@ -76,7 +78,9 @@ public class ProjectService {
     public Project save(ProjectDto projectDto) {
         Project project = modelMapper.map(projectDto, Project.class);
         Client client = clientRepository.findByClientName(projectDto.getClientName());
-
+        Optional<Phase> phase = phaseRepository.findById(1L);
+        phase.ifPresent(project::setPhase);
+        project.setProgress("0");
         Project savedProject = projectRepository.save(project);
         List<Project> projects = client.getProjects();
         projects.add(savedProject);
@@ -90,7 +94,7 @@ public class ProjectService {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
 
         return projectRepository.findAll(pageable).stream()
-                .map(project -> modelMapper.map(project,ProjectDto.class))
+                .map(project -> modelMapper.map(project, ProjectDto.class))
                 .collect(Collectors.toList());
     }
 
@@ -101,15 +105,17 @@ public class ProjectService {
         System.out.println("projectUpdateRequest = " + projectUpdateRequest);
         List<TaskInfo> taskInfoList = projectUpdateRequest.getTaskInfoList();
         Optional<Project> project = projectRepository.findById(projectUpdateRequest.getPId());
-        if(project.isPresent()) {
-            if(projectUpdateRequest.getDeadline()!=null)
-            {
+        String phaseName = projectUpdateRequest.getPhaseName();
+        Phase phase = phaseRepository.findByPhaseName(phaseName);
+        if (project.isPresent()) {
+            if (projectUpdateRequest.getDeadline() != null) {
                 project.get().setDeadline(projectUpdateRequest.getDeadline());
             }
-            if(projectUpdateRequest.getDescription()!=null)
-            {
+            if (projectUpdateRequest.getDescription() != null) {
                 project.get().setDescription(projectUpdateRequest.getDescription());
             }
+            project.get().setPhase(phase);
+            project.get().setProgress(phaseService.getProgress(phase));
             List<Task> tasks = taskInfoList.stream()
                     .map(taskInfo -> {
                                 Task task = new Task();

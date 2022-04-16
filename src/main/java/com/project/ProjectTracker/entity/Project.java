@@ -33,6 +33,10 @@ public class Project {
 
     private String technologies;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "phase_id")
+    private Phase phase;
+
     //    @OneToMany(targetEntity = Task.class, mappedBy = "project", fetch = FetchType.EAGER)
 //    private List<Task> tasks;
 

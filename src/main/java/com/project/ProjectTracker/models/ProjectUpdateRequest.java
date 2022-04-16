@@ -14,5 +14,6 @@ public class ProjectUpdateRequest {
     private long pId;
     private Date deadline;
     private String description;
+    private String phaseName;
     private List<TaskInfo> taskInfoList;
 }

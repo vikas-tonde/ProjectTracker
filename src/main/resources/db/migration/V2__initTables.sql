@@ -40,11 +40,13 @@ values ('Definition', 9);
 insert into phase(phase_name, percentage)
 values ('Design', 13);
 insert into phase(phase_name, percentage)
-values ('Build', 39);
+values ('Development', 39);
 insert into phase(phase_name, percentage)
-values ('Test', 25);
+values ('Testing', 25);
 insert into phase(phase_name, percentage)
-values ('Implementation', 5);
+values ('Deployment', 5);
+insert into phase(phase_name, percentage)
+values ('Completed', 0);
 
 
 create table project
@@ -58,7 +60,8 @@ create table project
     description  text,
     progress     varchar(10),
     technologies text,
-    c_id         bigint unsigned references client (c_id)
+    c_id         bigint unsigned references client (c_id),
+    phase_id     bigint unsigned references phase (phase_id)
 );
 
 /*create table technology (
@@ -88,15 +91,15 @@ create table project_technology(
 );*/
 
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,phase_id)
 values ('Random Project', '2022-3-19', '2022-9-09', 5000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '80', 'java,HTML,React');
+        '80', 'java,HTML,React',1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,phase_id)
 values ('Non Random Project', '2022-3-19', '2022-9-09', 5000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '60', 'Wordpress');
+        '60', 'Wordpress',1);
 
 insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
 values ('very Random Project', '2022-3-19', '2022-9-09', 5000, null,

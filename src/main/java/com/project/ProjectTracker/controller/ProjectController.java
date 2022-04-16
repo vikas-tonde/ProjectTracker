@@ -33,10 +33,6 @@ public class ProjectController {
         return projectService.getProject(page);
     }
 
-    @GetMapping(value = "/getprojects")
-    public List<Project> getProjects() {
-        return projectService.getProjects();
-    }
 
     @GetMapping(value = "/getproject/{id}")
     public ResponseEntity<?> getProjects(@PathVariable("id") long pId) {
