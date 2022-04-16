@@ -17,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,8 +76,9 @@ public class ProjectService {
     public Project save(ProjectDto projectDto) {
         Project project = modelMapper.map(projectDto, Project.class);
         Client client = clientRepository.findByClientName(projectDto.getClientName());
-        ArrayList<Project> projects = new ArrayList<>();
+
         Project savedProject = projectRepository.save(project);
+        List<Project> projects = client.getProjects();
         projects.add(savedProject);
         client.setProjects(projects);
         clientRepository.save(client);

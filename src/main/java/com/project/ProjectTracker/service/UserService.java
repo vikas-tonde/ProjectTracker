@@ -39,7 +39,7 @@ public class UserService {
 
         //TODO: do custom mapping of user and task
 
-        Pageable pageable = PageRequest.of((page - 1), 4);
+        Pageable pageable = PageRequest.of((page - 1), 6);
         Page<User> users = userRepository.findAll(pageable);
 //        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE)
         return users.stream()

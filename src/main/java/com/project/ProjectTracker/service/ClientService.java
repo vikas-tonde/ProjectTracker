@@ -24,7 +24,7 @@ public class ClientService {
     }
 
     public List<Client> getAllClientPage(int page) {
-        Pageable pageable = PageRequest.of((page - 1), 4);
+        Pageable pageable = PageRequest.of((page - 1), 6);
         Page<Client> clientPage = clientRepository.findAll(pageable);
         return clientPage.stream().toList();
     }

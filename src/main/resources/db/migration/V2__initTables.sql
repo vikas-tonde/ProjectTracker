@@ -22,9 +22,30 @@ values (1, 'Shreya',
         'shreyaramtirth4@gmail.com',
         '$2a$04$3AFJH1m1VGEUbSiumjmXrORx2BGpX.4fAyMs0DJvmEZ.koD38XrIu',
         'pune',
-        '9087654321', '1998-06-21',
+        '8975080981', '2000-10-24',
         'Project Manager', 'Front-End Developer', null,
         false);
+
+create table phase
+(
+    phase_id   bigint unsigned auto_increment primary key,
+    phase_name varchar(30) unique,
+    percentage int
+);
+
+insert into phase(phase_name, percentage)
+values ('Initiation', 9);
+insert into phase(phase_name, percentage)
+values ('Definition', 9);
+insert into phase(phase_name, percentage)
+values ('Design', 13);
+insert into phase(phase_name, percentage)
+values ('Build', 39);
+insert into phase(phase_name, percentage)
+values ('Test', 25);
+insert into phase(phase_name, percentage)
+values ('Implementation', 5);
+
 
 create table project
 (
