@@ -55,7 +55,12 @@ public class ProjectController {
     @PostMapping(value = "/project/update")
     public boolean updateProject(@RequestBody ProjectUpdateRequest projectUpdateRequest) {
         return projectService.updateProjectTask(projectUpdateRequest);
+    }
 
+    @GetMapping(value = "/projects/priority")
+    public List<String> getHighPriorityProjects()
+    {
+        return projectService.getHighPriorityProjects();
     }
 
 }

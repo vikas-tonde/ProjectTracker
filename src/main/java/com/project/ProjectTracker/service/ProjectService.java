@@ -137,4 +137,14 @@ public class ProjectService {
         return false;
     }
 
+    public List<String> getHighPriorityProjects()
+    {
+        List<Project> projects = projectRepository.findHighPriorityProjects();
+        List<String> titles = projects.stream()
+                .map(project -> project.getTitle())
+                .collect(Collectors.toList());
+        return titles;
+    }
+
+
 }
