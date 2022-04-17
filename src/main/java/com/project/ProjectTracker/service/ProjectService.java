@@ -106,7 +106,7 @@ public class ProjectService {
         List<TaskInfo> taskInfoList = projectUpdateRequest.getTaskInfoList();
         Optional<Project> project = projectRepository.findById(projectUpdateRequest.getPId());
         String phaseName = projectUpdateRequest.getPhaseName();
-        Phase phase = phaseRepository.findByPhaseName(phaseName);
+
         if (project.isPresent()) {
             if (projectUpdateRequest.getDeadline() != null) {
                 project.get().setDeadline(projectUpdateRequest.getDeadline());
@@ -114,8 +114,11 @@ public class ProjectService {
             if (projectUpdateRequest.getDescription() != null) {
                 project.get().setDescription(projectUpdateRequest.getDescription());
             }
-            project.get().setPhase(phase);
-            project.get().setProgress(phaseService.getProgress(phase));
+            if (phaseName != null) {
+                Phase phase = phaseRepository.findByPhaseName(phaseName);
+                project.get().setPhase(phase);
+            }
+            project.get().setProgress(phaseService.getProgress(project.get().getPhase()));
             List<Task> tasks = taskInfoList.stream()
                     .map(taskInfo -> {
                                 Task task = new Task();
