@@ -64,6 +64,18 @@ create table project
     phase_id     bigint unsigned references phase (phase_id)
 );
 
+create table client
+(
+    c_id           bigint unsigned auto_increment primary key,
+    client_name    varchar(50) unique,
+    representative varchar(50),
+    phone_no       char(10),
+    email          varchar(30),
+    address        varchar(150)
+);
+
+insert into client(client_name, representative, phone_no, email, address)
+    values ('Amazon','jeff bezos','9607854321','jeff@gmail.com','Pune Maharashtra')
 /*create table technology (
   t_id bigint unsigned AUTO_INCREMENT primary key,
   technology_name varchar(30) unique
@@ -91,15 +103,15 @@ create table project_technology(
 );*/
 
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,phase_id)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
 values ('Random Project', '2022-3-19', '2022-9-09', 5000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '80', 'java,HTML,React',1);
+        '80', 'java,HTML,React',1,1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,phase_id)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
 values ('Non Random Project', '2022-3-19', '2022-9-09', 5000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '60', 'Wordpress',1);
+        '60', 'Wordpress',1,1);
 
 insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
 values ('very Random Project', '2022-3-19', '2022-9-09', 5000, null,
@@ -163,12 +175,4 @@ values (1, 1, 'Work on project2', '2022-03-21', false);
 
 
 
-create table client
-(
-    c_id           bigint unsigned auto_increment primary key,
-    client_name    varchar(50) unique,
-    representative varchar(50),
-    phone_no       char(10),
-    email          varchar(30),
-    address        varchar(150)
-);
+
