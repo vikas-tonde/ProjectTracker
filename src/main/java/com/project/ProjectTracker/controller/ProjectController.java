@@ -1,9 +1,7 @@
 package com.project.ProjectTracker.controller;
 
 import com.project.ProjectTracker.entity.Project;
-import com.project.ProjectTracker.models.ProjectDto;
-import com.project.ProjectTracker.models.ProjectResponse;
-import com.project.ProjectTracker.models.ProjectUpdateRequest;
+import com.project.ProjectTracker.models.*;
 import com.project.ProjectTracker.service.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -61,6 +59,18 @@ public class ProjectController {
     public List<String> getHighPriorityProjects()
     {
         return projectService.getHighPriorityProjects();
+    }
+
+    @GetMapping(value = "/projects/all/progress")
+    public List<ProjectProgress> getAllProjectProgress()
+    {
+        return projectService.getAllProjectProgress();
+    }
+
+    @GetMapping(value = "/projects/all/count")
+    public CountResponse getCountCompleted()
+    {
+        return projectService.getCountCompleted();
     }
 
 }

@@ -146,5 +146,22 @@ public class ProjectService {
         return titles;
     }
 
+    public List<ProjectProgress> getAllProjectProgress()
+    {
+        List<Project> projects = projectRepository.findAll();
+        modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
+        return projects.stream()
+                .map(project -> modelMapper.map(project, ProjectProgress.class))
+                .collect(Collectors.toList());
+    }
+
+    public CountResponse getCountCompleted()
+    {
+        int completed = projectRepository.countCompleted();
+        int notCompleted = projectRepository.countNotCompleted();
+        CountResponse countResponse= new CountResponse(completed,notCompleted);
+        return countResponse;
+
+    }
 
 }

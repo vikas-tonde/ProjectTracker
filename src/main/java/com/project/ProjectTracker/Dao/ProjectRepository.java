@@ -16,5 +16,9 @@ public interface ProjectRepository extends JpaRepository<Project, Long>
     @Query(value ="select * from project where progress<>'100' order by deadline asc limit 5" ,nativeQuery = true)
     List<Project> findHighPriorityProjects();
 
+    @Query(value = "select count(p_id) from project where progress='100'",nativeQuery = true)
+    int countCompleted();
 
+    @Query(value = "select count(p_id) from project where progress=!'100'",nativeQuery = true)
+    int countNotCompleted();
 }
