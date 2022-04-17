@@ -1,6 +1,7 @@
 package com.project.ProjectTracker.controller;
 
 import com.project.ProjectTracker.entity.User;
+import com.project.ProjectTracker.models.CountResponse;
 import com.project.ProjectTracker.models.UserInfoResponse;
 import com.project.ProjectTracker.service.UserService;
 import lombok.AllArgsConstructor;
@@ -65,5 +66,12 @@ public class UserController {
     public boolean updateUser(@RequestBody User user) {
         return userService.updateUser(user);
     }
+
+    @GetMapping(value = "/user/count/projects/{username}")
+    public CountResponse getCounts(@PathVariable String username)
+    {
+        return userService.getCounts(username);
+    }
+
 
 }

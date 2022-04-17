@@ -6,6 +6,7 @@ import com.project.ProjectTracker.Dao.UserRepository;
 import com.project.ProjectTracker.entity.Project;
 import com.project.ProjectTracker.entity.Task;
 import com.project.ProjectTracker.entity.User;
+import com.project.ProjectTracker.models.CountResponse;
 import com.project.ProjectTracker.models.TaskDto;
 import com.project.ProjectTracker.models.UserInfoResponse;
 import lombok.AllArgsConstructor;
@@ -47,15 +48,15 @@ public class UserService {
                 .collect(Collectors.toList());
     }
 
-    public long getCountByUsername(String username)
-    {
+    public long getCountByUsername(String username) {
         return userRepository.countByUsernameStartingWith(username);
     }
+
     public List<UserInfoResponse> getUserSearch(String username) {
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         Optional<List<User>> users = userRepository.findByUsernameStartsWith(username);
         return users.map(users1 -> users1.stream()
-                .map(user -> modelMapper.map(user,UserInfoResponse.class))
+                .map(user -> modelMapper.map(user, UserInfoResponse.class))
                 .collect(Collectors.toList())
         ).orElse(null);
     }
@@ -63,9 +64,12 @@ public class UserService {
     public List<TaskDto> getTasks(String username) {
         List<Task> tasks = taskRepository.findAllByUser_UsernameAndCompletedIsFalse(username);
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        return tasks.stream().map(
-                        task -> modelMapper.map(task, TaskDto.class))
+        List<TaskDto> taskDtos = tasks.stream().map(
+                        task ->
+                                modelMapper.map(task, TaskDto.class))
                 .collect(Collectors.toList());
+
+        return taskDtos;
     }
 
     public UserInfoResponse getUser(String username) {
@@ -116,5 +120,13 @@ public class UserService {
 
     public long getCount() {
         return userRepository.count();
+    }
+
+    public CountResponse getCounts(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        int completedProjects = taskRepository.countCompletedProjects(user.get().getUId());
+        int workingProjects = taskRepository.countWorkingProjects(user.get().getUId());
+        CountResponse countResponse = new CountResponse(completedProjects, workingProjects);
+        return countResponse;
     }
 }
