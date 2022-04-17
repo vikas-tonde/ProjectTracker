@@ -15,7 +15,10 @@ public class PhaseService {
     private PhaseRepository phaseRepository;
     public String getProgress(Phase phase)
     {
-        int sumPercentage = phaseRepository.sumPercentage(phase.getPhaseId());
+        int sumPercentage=0;
+        if(phase.getPhaseId()!=1) {
+            sumPercentage = phaseRepository.sumPercentage(phase.getPhaseId());
+        }
         return String.valueOf(sumPercentage);
     }
 

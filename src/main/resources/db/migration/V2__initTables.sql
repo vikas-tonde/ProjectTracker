@@ -26,6 +26,17 @@ values (1, 'Shreya',
         'Project Manager', 'Front-End Developer', null,
         false);
 
+insert into user
+values (2, 'Youth',
+        'Ramtirth',
+        'Youth',
+        'Youth@gmail.com',
+        '$2a$04$3AFJH1m1VGEUbSiumjmXrORx2BGpX.4fAyMs0DJvmEZ.koD38XrIu',
+        'pune',
+        '8975080981', '2000-10-24',
+        'Employee', 'Front-End Developer', null,
+        false);
+
 create table phase
 (
     phase_id   bigint unsigned auto_increment primary key,
@@ -75,7 +86,7 @@ create table client
 );
 
 insert into client(client_name, representative, phone_no, email, address)
-    values ('Amazon','jeff bezos','9607854321','jeff@gmail.com','Pune Maharashtra')
+values ('Amazon', 'jeff bezos', '9607854321', 'jeff@gmail.com', 'Pune Maharashtra');
 /*create table technology (
   t_id bigint unsigned AUTO_INCREMENT primary key,
   technology_name varchar(30) unique
@@ -103,15 +114,15 @@ create table project_technology(
 );*/
 
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies, c_id, phase_id)
 values ('Random Project', '2022-3-19', '2022-9-09', 5000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '80', 'java,HTML,React',1,1);
+        '80', 'java,HTML,React', 1, 1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies, c_id, phase_id)
 values ('Non Random Project', '2022-3-19', '2022-9-09', 5000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '60', 'Wordpress',1,1);
+        '60', 'Wordpress', 1, 1);
 
 insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
 values ('very Random Project', '2022-3-19', '2022-9-09', 5000, null,
