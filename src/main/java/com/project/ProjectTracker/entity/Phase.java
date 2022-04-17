@@ -15,6 +15,7 @@ public class Phase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "phase_id")
     private Long phaseId;
     private String phaseName;
     private int percentage;

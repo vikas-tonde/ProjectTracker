@@ -16,6 +16,7 @@ import java.sql.Date;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "p_id")
     private Long pId;
     private String title;
     private Date dateAdded;

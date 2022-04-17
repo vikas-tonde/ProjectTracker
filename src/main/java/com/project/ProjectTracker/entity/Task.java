@@ -17,6 +17,7 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "task_id")
     private Long taskId;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
