@@ -22,6 +22,7 @@ public class UserInfoResponse {
     private Date dob;
     private String email;
     private String qualification;
+    private String roles;
 
     private Set<Project> projects;
 }
