@@ -148,12 +148,12 @@ public class ProjectService {
         List<Project> projects = projectRepository.findAll();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         List<String> titles = projects.stream()
-                .map(project -> project.getTitle())
+                .map(Project::getTitle)
                 .collect(Collectors.toList());
         List<String> progresses = projects.stream()
-                .map(project -> project.getProgress())
+                .map(Project::getProgress)
                 .collect(Collectors.toList());
-        return new List[]{titles,progresses};
+        return new List[]{titles, progresses};
 
     }
 
