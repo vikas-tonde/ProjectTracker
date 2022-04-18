@@ -19,6 +19,6 @@ public interface ProjectRepository extends JpaRepository<Project, Long>
     @Query(value = "select count(p_id) from project where progress='100'",nativeQuery = true)
     int countCompleted();
 
-    @Query(value = "select count(p_id) from project where progress=!'100'",nativeQuery = true)
+    @Query(value = "select count(p_id) from project where progress<>'100'",nativeQuery = true)
     int countNotCompleted();
 }
