@@ -73,4 +73,10 @@ public class ProjectController {
         return projectService.getCountCompleted();
     }
 
+    @GetMapping(value = "/projects/all/cost")
+    public List[] getAllCost()
+    {
+        return projectService.getAllProjectCost();
+    }
+
 }
