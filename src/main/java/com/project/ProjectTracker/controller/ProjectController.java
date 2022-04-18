@@ -1,7 +1,10 @@
 package com.project.ProjectTracker.controller;
 
 import com.project.ProjectTracker.entity.Project;
-import com.project.ProjectTracker.models.*;
+import com.project.ProjectTracker.models.CountResponse;
+import com.project.ProjectTracker.models.ProjectDto;
+import com.project.ProjectTracker.models.ProjectResponse;
+import com.project.ProjectTracker.models.ProjectUpdateRequest;
 import com.project.ProjectTracker.service.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -61,7 +64,7 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/projects/all/progress")
-    public List<ProjectProgress> getAllProjectProgress() {
+    public List[] getAllProjectProgress() {
         return projectService.getAllProjectProgress();
     }
 

@@ -144,12 +144,17 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
-    public List<ProjectProgress> getAllProjectProgress() {
+    public List[] getAllProjectProgress() {
         List<Project> projects = projectRepository.findAll();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
-        return projects.stream()
-                .map(project -> modelMapper.map(project, ProjectProgress.class))
+        List<String> titles = projects.stream()
+                .map(project -> project.getTitle())
                 .collect(Collectors.toList());
+        List<String> progresses = projects.stream()
+                .map(project -> project.getProgress())
+                .collect(Collectors.toList());
+        return new List[]{titles,progresses};
+
     }
 
     public CountResponse getCountCompleted() {
