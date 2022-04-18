@@ -68,8 +68,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/user/count/projects/{username}")
-    public CountResponse getCounts(@PathVariable String username)
-    {
+    public CountResponse getCounts(@PathVariable String username) {
         return userService.getCounts(username);
     }
 

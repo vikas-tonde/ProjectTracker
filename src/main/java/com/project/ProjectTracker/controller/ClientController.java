@@ -21,8 +21,7 @@ public class ClientController {
     }
 
     @GetMapping("/clients/page/{page}")
-    public List<Client> getALlClientPage(@PathVariable int page)
-    {
+    public List<Client> getALlClientPage(@PathVariable int page) {
         return clientService.getAllClientPage(page);
     }
 

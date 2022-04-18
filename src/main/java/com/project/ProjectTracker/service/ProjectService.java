@@ -137,16 +137,14 @@ public class ProjectService {
         return false;
     }
 
-    public List<String> getHighPriorityProjects()
-    {
+    public List<String> getHighPriorityProjects() {
         List<Project> projects = projectRepository.findHighPriorityProjects();
         return projects.stream()
                 .map(Project::getTitle)
                 .collect(Collectors.toList());
     }
 
-    public List<ProjectProgress> getAllProjectProgress()
-    {
+    public List<ProjectProgress> getAllProjectProgress() {
         List<Project> projects = projectRepository.findAll();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         return projects.stream()
@@ -154,16 +152,14 @@ public class ProjectService {
                 .collect(Collectors.toList());
     }
 
-    public CountResponse getCountCompleted()
-    {
+    public CountResponse getCountCompleted() {
         int completed = projectRepository.countCompleted();
         int notCompleted = projectRepository.countNotCompleted();
-        return new CountResponse(completed,notCompleted);
+        return new CountResponse(completed, notCompleted);
 
     }
 
-    public List[] getAllProjectCost()
-    {
+    public List[] getAllProjectCost() {
         List<Project> projects = projectRepository.findAll();
         modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.LOOSE);
         List<String> titles = projects.stream()
@@ -173,6 +169,6 @@ public class ProjectService {
         List<Long> costs = projects.stream()
                 .map(Project::getCost)
                 .collect(Collectors.toList());
-        return new List[]{titles,costs};
+        return new List[]{titles, costs};
     }
 }

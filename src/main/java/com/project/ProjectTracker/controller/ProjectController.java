@@ -56,26 +56,22 @@ public class ProjectController {
     }
 
     @GetMapping(value = "/projects/priority")
-    public List<String> getHighPriorityProjects()
-    {
+    public List<String> getHighPriorityProjects() {
         return projectService.getHighPriorityProjects();
     }
 
     @GetMapping(value = "/projects/all/progress")
-    public List<ProjectProgress> getAllProjectProgress()
-    {
+    public List<ProjectProgress> getAllProjectProgress() {
         return projectService.getAllProjectProgress();
     }
 
     @GetMapping(value = "/projects/all/count")
-    public CountResponse getCountCompleted()
-    {
+    public CountResponse getCountCompleted() {
         return projectService.getCountCompleted();
     }
 
     @GetMapping(value = "/projects/all/cost")
-    public List[] getAllCost()
-    {
+    public List[] getAllCost() {
         return projectService.getAllProjectCost();
     }
 
