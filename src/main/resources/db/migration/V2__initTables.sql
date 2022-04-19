@@ -23,18 +23,18 @@ values (1, 'Shreya',
         '$2a$04$3AFJH1m1VGEUbSiumjmXrORx2BGpX.4fAyMs0DJvmEZ.koD38XrIu',
         'pune',
         '8975080981', '2000-10-24',
-        'Project Manager', 'Front-End Developer', null,
+        'Employee', 'Front-End Developer', null,
         false);
 
 insert into user
-values (2, 'Youth',
-        'Ramtirth',
-        'Youth',
-        'Youth@gmail.com',
-        '$2a$04$3AFJH1m1VGEUbSiumjmXrORx2BGpX.4fAyMs0DJvmEZ.koD38XrIu',
-        'pune',
-        '8975080981', '2000-10-24',
-        'Employee', 'Front-End Developer', null,
+values (2, 'Vikas',
+        'Tonde',
+        'vikasT',
+        'tondev23@gmail.com',
+        '$2a$12$gEC6AzuoZ6lL9JbdZNKl7.wuVXHsklhTDzq.SlFvUzLw6m0Nw0bQ.',
+        'Pune',
+        '8308859743', '1998-07-21',
+        'Project Managewr', 'Full Stack Developer', null,
         false);
 
 create table phase
@@ -87,84 +87,45 @@ create table client
 
 insert into client(client_name, representative, phone_no, email, address)
 values ('Amazon', 'jeff bezos', '9607854321', 'jeff@gmail.com', 'Pune Maharashtra');
-/*create table technology (
-  t_id bigint unsigned AUTO_INCREMENT primary key,
-  technology_name varchar(30) unique
-);
-
-insert into technology(technology_name) values ("Java");
-insert into technology(technology_name) values ("React");
-insert into technology(technology_name) values ("Next js");
-insert into technology(technology_name) values ("MySQL");
-insert into technology(technology_name) values ("Angular");
-insert into technology(technology_name) values ("Spring");
-insert into technology(technology_name) values ("WordPress");
-insert into technology(technology_name) values ("Node js");
-insert into technology(technology_name) values ("Redux");
-insert into technology(technology_name) values ("MongoDB");
-insert into technology(technology_name) values ("Android");
-insert into technology(technology_name) values ("Flutter");
-insert into technology(technology_name) values ("IOS");
-
-
-create table project_technology(
-    p_id bigint unsigned references project(p_id),
-    t_id bigint unsigned references technology(t_id),
-    primary key (p_id, t_id)
-);*/
-
+insert into client(client_name, representative, phone_no, email, address)
+values ('Microsoft', 'Bill Gates', '9607854321', 'bill@gmail.com', 'Pune Maharashtra');
+insert into client(client_name, representative, phone_no, email, address)
+values ('Meta', 'Mark Zckerberg', '9607854321', 'mark@gmail.com', 'Pune Maharashtra');
 
 insert into project (title, date_added, deadline, cost, priority, description, progress, technologies, c_id, phase_id)
-values ('Random Project', '2022-3-19', '2022-9-09', 5000, null,
+values ('Project Avengers', '2022-3-19', '2022-9-09', 5000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
         '80', 'java,HTML,React', 1, 1);
 
 insert into project (title, date_added, deadline, cost, priority, description, progress, technologies, c_id, phase_id)
-values ('Non Random Project', '2022-3-19', '2022-9-09', 5000, null,
+values ('Project Ragnarok', '2022-3-19', '2022-9-09', 4000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
         '60', 'Wordpress', 1, 1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
-values ('very Random Project', '2022-3-19', '2022-9-09', 5000, null,
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
+values ('Project Ultron', '2022-3-19', '2022-9-09', 6000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '70', 'Mongodb');
+        '70', 'Mongodb',2,1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
-values ('So much Random Project', '2022-3-19', '2022-9-09', 5000, null,
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
+values ('Project VR', '2022-3-19', '2022-9-09', 7000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '20', 'spring');
+        '20', 'spring',3,1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
-values ('Significant', '2022-3-19', '2022-9-09', 5000, null,
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
+values ('Project Hail Hydra', '2022-3-19', '2022-9-09', 12000, null,
         'This is Significant project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '50', 'Node JS');
+        '50', 'Node JS',2,1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
-values ('The website of websites', '2022-3-19', '2022-9-09', 5000, null,
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
+values ('Just Do It', '2022-3-19', '2022-9-09', 10000, null,
         'This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '69', 'Android');
+        '69', 'Android',1,1);
 
-insert into project (title, date_added, deadline, cost, priority, description, progress, technologies)
-values ('A project of final year student', '2022-3-19', '2022-9-09', 5000, null,
+insert into project (title, date_added, deadline, cost, priority, description, progress, technologies,c_id,phase_id)
+values ('Cross Platform App', '2022-3-19', '2022-9-09', 8000, null,
         'This is not much random as others This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project This is random project',
-        '45', 'Flutter');
-
-
-/*insert into project_technology values (1,2);
-insert into project_technology values (1,8);
-insert into project_technology values (1,10);
-insert into project_technology values (2,5);
-insert into project_technology values (2,7);
-insert into project_technology values (3,9);
-insert into project_technology values (3,12);
-insert into project_technology values (4,3);
-insert into project_technology values (4,4);
-insert into project_technology values (5,4);
-insert into project_technology values (5,7);
-insert into project_technology values (6,2);
-insert into project_technology values (6,9);
-insert into project_technology values (7,10);
-insert into project_technology values (7,11);*/
+        '45', 'Flutter',2,1);
 
 
 create table task
@@ -183,6 +144,9 @@ values (1, 1, 'Work on project', '2022-03-21', false);
 
 insert into task (p_id, u_id, task, assigned_on, completed)
 values (1, 1, 'Work on project2', '2022-03-21', false);
+
+insert into task (p_id, u_id, task, assigned_on, completed)
+values (2, 2, 'Work on Project', '2022-03-21', false);
 
 
 
