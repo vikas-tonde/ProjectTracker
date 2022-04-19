@@ -34,7 +34,7 @@ values (2, 'Vikas',
         '$2a$12$gEC6AzuoZ6lL9JbdZNKl7.wuVXHsklhTDzq.SlFvUzLw6m0Nw0bQ.',
         'Pune',
         '8308859743', '1998-07-21',
-        'Project Managewr', 'Full Stack Developer', null,
+        'Project Manager', 'Full Stack Developer', null,
         false);
 
 create table phase
